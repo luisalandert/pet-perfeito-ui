@@ -2,7 +2,7 @@
   <v-app id="app">
     <v-navigation-drawer
         v-model="drawer"
-        color=#29B6D1
+        color=black
         floating
         app
     >
@@ -18,21 +18,22 @@
             link
         >
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title class="white--text">{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
     <v-app-bar
-        color="transparent"
-        dense
+        color="white"
         app
         flat
     >
-      <v-app-bar-nav-icon color="white" @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon color="black" @click="drawer = !drawer"></v-app-bar-nav-icon>
+      
+      <v-toolbar-title class="black--text">Pet Perfeito</v-toolbar-title>
 
-      <v-toolbar-title class="white--text">Pet Perfeito</v-toolbar-title>
+      <v-btn fixed right text> Login </v-btn>
     </v-app-bar>
     <v-main>
       <router-view/>
@@ -47,10 +48,8 @@ export default {
     drawer: false,
     items: [
       { title: 'Home', to: '/' },
-      { title: 'Grupos de Veículos', to: '/grupos' },
-      { title: 'Clientes', to: '/clientes' },
-      { title: 'Reservas', to: '/reservas' },
-      { title: 'Locações', to: '/locacoes' },
+      { title: 'Feed', to: '/grupos' },
+      { title: 'ONGs', to: '/clientes' },
     ],
     right: null,
   }),
@@ -65,7 +64,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background: linear-gradient(329.54deg, #29B6D1 0%, #00C7C7 100%);
+  //background: linear-gradient(329.54deg, #29B6D1 0%, #00C7C7 100%);
   height: 100vh;
 }
 
