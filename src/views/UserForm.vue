@@ -1,7 +1,7 @@
 <template>
 <v-container>
-    <v-flex class="d-flex flex-row pb-6 pl-3">
-        <h2 class="black--text">Cadastro de Usuário</h2>
+    <v-flex class="d-flex flex-row py-6 pl-3">
+        <h2 id="title" class="black--text">Cadastro de Usuário</h2>
     </v-flex>
 
     <v-form class="px-3">
@@ -12,7 +12,15 @@
         <v-text-field v-model="password" label="Senha"></v-text-field>
         <v-spacer></v-spacer>
         <v-flex class="d-flex flex-row-reverse">
-            <v-btn rounded color="red" class="white--text" @click="createUser">Cadastrar</v-btn>
+            <v-btn 
+              rounded 
+              depressed
+              color="#5fddd5" 
+              class="white--text" 
+              @click="createUser"
+            >
+              Cadastrar
+            </v-btn>
         </v-flex>
     </v-form>
     <v-alert
@@ -59,3 +67,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  #title {
+    font-family: "Dosis";
+    font-weight: 300;
+    font-size: 2rem;
+  }
+</style>
