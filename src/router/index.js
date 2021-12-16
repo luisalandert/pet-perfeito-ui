@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import SignUp from '../views/SignUp.vue'
 import UserForm from '../views/UserForm.vue'
 import OngForm from '../views/OngForm.vue'
+import UserProfile from '../views/UserProfile.vue'
 
 Vue.use(VueRouter)
 
@@ -35,8 +36,12 @@ const routes = [
     path:'/signUp/ong',
     name: 'OngSignUp',
     component: OngForm,
-  }
-
+  },
+  {
+    path:'/user/profile',
+    name: 'Profile',
+    component: UserProfile,
+  },
 ]
 
 const router = new VueRouter({

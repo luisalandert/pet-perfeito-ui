@@ -34,7 +34,6 @@
   @import url("https://fonts.googleapis.com/css2?family=Dosis&display=swap");
 
   #landing-page {
-    background-image: url("/src/asset/iStock-11405450010.jpg");
     height: 100vh;
     overflow: hidden;
   }

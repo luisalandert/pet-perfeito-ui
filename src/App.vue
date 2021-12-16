@@ -30,6 +30,7 @@
         color=#B387CC
         app
         flat
+        fixed
     >
       <v-icon color="white" @click="drawer = !drawer">mdi-paw</v-icon>
       
@@ -54,6 +55,7 @@ export default {
     drawer: false,
     items: [
       { title: 'Home', to: '/' },
+      { title: 'Profile', to: '/user/profile' },
       { title: 'Feed', to: '/grupos' },
       { title: 'ONGs', to: '/clientes' },
     ],
