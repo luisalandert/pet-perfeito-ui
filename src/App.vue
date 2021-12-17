@@ -56,7 +56,7 @@ export default {
     items: [
       { title: 'Home', to: '/' },
       { title: 'Profile', to: '/user/profile' },
-      { title: 'Feed', to: '/grupos' },
+      { title: 'Feed', to: '/feed' },
       { title: 'ONGs', to: '/clientes' },
     ],
     right: null,

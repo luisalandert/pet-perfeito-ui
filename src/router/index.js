@@ -5,6 +5,7 @@ import SignUp from '../views/SignUp.vue'
 import UserForm from '../views/UserForm.vue'
 import OngForm from '../views/OngForm.vue'
 import UserProfile from '../views/UserProfile.vue'
+import Feed from '../views/Feed.vue'
 
 Vue.use(VueRouter)
 
@@ -42,6 +43,11 @@ const routes = [
     name: 'Profile',
     component: UserProfile,
   },
+  {
+    path:'/feed',
+    name: 'Feed',
+    component: Feed,
+  }
 ]
 
 const router = new VueRouter({
