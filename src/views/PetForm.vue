@@ -6,9 +6,9 @@
 
     <v-form class="px-3">
         <v-text-field v-model="nome" label="Nome"></v-text-field>
-        <v-text-field v-model="cpf" label="CPF"></v-text-field>
-        <v-text-field v-model="telefone" label="Telefone"></v-text-field>
-        <v-text-field v-model="cep" label="CEP"></v-text-field>
+        <v-text-field v-model="descricao" label="Descrição"></v-text-field>
+        <v-text-field v-model="especie" label="Espécie"></v-text-field>
+        <v-text-field v-model="sexo" label="Sexo"></v-text-field>
         <v-text-field v-model="dataNascimento" label="Data de Nascimento"></v-text-field>
         <v-spacer></v-spacer>
         <v-flex class="d-flex flex-row-reverse">
@@ -38,28 +38,28 @@
 
 <script>
 
-import userService from '../services/userService'
+import petService from '../services/petService'
 
 export default {
 
-  name: 'UserForm',
+  name: 'PetForm',
 
   data() {
     return {
       success: false,
       error: false,
       nome: '',
-      cpf: '',
-      telefone: '',
-      cep: '',
+      descricao: '',
+      especie: '',
+      sexo: '',
       dataNascimento: ''
     }
   },
 
   methods: {
-    async createUser() {
+    async createPet() {
       try{
-        await userService.create(this.nome, this.cpf, this.telefone, this.cep, this.dataNascimento)
+        await petService.create(this.nome, this.descricao, this.especie, this.sexo, this.dataNascimento)
         this.success = true
       } catch (e) {
         this.error = true

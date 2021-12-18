@@ -2,7 +2,7 @@ import api from './api'
 
 export default {
     async find(id) {
-        const response = await api.get(`pets/${id}`)
+        const response = await api.get(`api/pets/${id}`)
         return response.data
     },
 
@@ -12,17 +12,17 @@ export default {
     },
 
     async create(nome, descricao, especie, sexo, dataNascimento) {
-        const response = await api.post('pets', {nome, descricao, especie, sexo, dataNascimento})
+        const response = await api.post('api/pets', {nome, descricao, especie, sexo, dataNascimento})
         return response.data
     },
 
     async update(nome, descricao, especie, sexo, dataNascimento) {
-        const response = await api.put(`pets/${id}`, {nome, descricao, especie, sexo, dataNascimento})
+        const response = await api.put(`api/pets/${id}`, {nome, descricao, especie, sexo, dataNascimento})
         return response.data
     },
 
     async delete(id) {
-        const response = await api.delete(`pets/${id}`)
+        const response = await api.delete(`api/pets/${id}`)
         return response.data
     }
 

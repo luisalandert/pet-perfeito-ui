@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const config = {
-    baseURL: "http://localhost:8081",
+    baseURL: "http://localhost:8080",
     allowedHeaders: ['Content-Type', 'Access-Control-Allow-Methods', 'Access-Control-Request-Headers', 'Access-Control-Allow-Origin'],
 }
 

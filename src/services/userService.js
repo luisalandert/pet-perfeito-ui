@@ -2,7 +2,7 @@ import api from '../services/api'
 
 export default {
     async find(id) {
-        const response = await api.get(`users/${id}`)
+        const response = await api.get(`api/users/${id}`)
         return response.data
     },
 
@@ -12,17 +12,17 @@ export default {
     },
 
     async create(nome, cpf, telefone, cep, dataNascimento) {
-        const response = await api.post('users', {nome, cpf, telefone, cep, dataNascimento})
+        const response = await api.post('api/users', {nome, cpf, telefone, cep, dataNascimento})
         return response.data
     },
 
     async update(nome, cpf, telefone, cep, dataNascimento) {
-        const response = await api.put(`users/${id}`, {nome, cpf, telefone, cep, dataNascimento})
+        const response = await api.put(`api/users/${id}`, {nome, cpf, telefone, cep, dataNascimento})
         return response.data
     },
 
     async delete(id) {
-        const response = await api.delete(`users/${id}`)
+        const response = await api.delete(`api/users/${id}`)
         return response.data
     }
 

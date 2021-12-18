@@ -46,7 +46,7 @@ export default {
 
   data() {
     return {
-        test: '../assets/dogIcon2.png',
+        avatar: '../assets/dogIcon2.png',
         pets: [
             { nome: 'Luna', 
               descricao: 'Cachorrinha muito amorosa que gosta de carinhos e passeios.', 
@@ -111,16 +111,16 @@ export default {
           let img;
             switch (pet.especie) {
                 case "Cachorro":
-                    img = "../assets/dogIcon2.png"
+                    img = "src/assets/dogIcon2.png"
                     break
                 case "Gato":
-                    img = "../assets/catIcon2.png"
+                    img = "src/assets/catIcon2.png"
                     break
                 case "Ave":
-                    img = "../assets/birdIcon2.png"
+                    img = "src/assets/birdIcon2.png"
                     break
                 default:
-                    img = "../assets/pawIcon2.png"
+                    img = "src/assets/pawIcon2.png"
             }
             return img
       }

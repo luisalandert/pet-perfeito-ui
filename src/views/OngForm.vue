@@ -5,11 +5,14 @@
     </v-flex>
 
     <v-form class="px-3">
-        <v-text-field v-model="name" label="Nome"></v-text-field>
-        <v-text-field v-model="phoneNumber" label="Telefone"></v-text-field>
-        <v-text-field v-model="address" label="Endereço"></v-text-field>
-        <v-text-field v-model="email" label="Email"></v-text-field>
-        <v-text-field v-model="password" label="Senha"></v-text-field>
+        <v-text-field v-model="denominacao" label="Denominação"></v-text-field>
+        <v-text-field v-model="cnpj" label="CNPJ"></v-text-field>
+        <v-text-field v-model="telefone" label="Telefone"></v-text-field>
+        <v-text-field v-model="cep" label="CEP"></v-text-field>
+        <v-text-field v-model="areaAtuacao" label="Área de atuação"></v-text-field>
+        <v-text-field v-model="natureza" label="Natureza"></v-text-field>
+        <v-text-field v-model="dataFundacao" label="Data de fundação"></v-text-field>
+
         <v-spacer></v-spacer>
         <v-flex class="d-flex flex-row-reverse">
             <v-btn
@@ -17,47 +20,64 @@
               depressed 
               color="#5fddd5" 
               class="white--text" 
-              @click="createUser"
+              @click="createOng"
             >
               Cadastrar
             </v-btn>
         </v-flex>
     </v-form>
     <v-alert
-        v-if="success"
-        :visible="success"
-        type="success"
+      v-model="success"
+      type="success"
+      dismissible
     >Cadastro realizado com sucesso</v-alert>
     <v-alert
-        v-if="error"
-        :visible="error"
-        type="error"
+      v-model="error"
+      type="error"
+      dismissible
     >Erro ao fazer cadastro</v-alert>
 </v-container>
 </template>
 
 <script>
 
+import ongService from '../services/ongService'
+
 export default {
 
-  name: 'ClienteForm',
-  emits: ['cliente-insert'],
+  name: 'OngForm',
 
   data() {
     return {
       success: false,
       error: false,
-      name: '',
-      phoneNumber: '',
-      address: '',
-      email: '',
-      password: ''
+      denominacao: '',
+      cnpj: '',
+      telefone: '',
+      cep: '',
+      areaAtuacao: '',
+      natureza: '',
+      dataFundacao: ''
     }
   },
 
   methods: {
-    async createUser() {
-      
+    async createOng() {
+      try{
+        await ongService.create(
+          this.denominacao, 
+          this.cnpj, 
+          this.telefone, 
+          this.cep, 
+          this.areaAtuacao, 
+          this.natureza, 
+          this.dataFundacao)
+        this.success = true
+      } catch (e) {
+        this.error = true
+      } finally {
+        resetAlerts
+      }
     },
 
     resetAlerts() {
