@@ -1,5 +1,13 @@
 <template>
-    <v-row class="pa-6 my-8 mx-16">
+  <div>
+    <div class="text-center" v-if=loading>
+      <v-progress-circular
+        class="my-16"
+        indeterminate
+        color="primary"
+      ></v-progress-circular>
+    </div>
+    <v-row class="pa-6 my-8 mx-16" v-else>
         <v-col
         v-for="pet in pets"
         :key="pet.nome"
@@ -8,7 +16,7 @@
             <v-card height="300">
                 <v-card-title class="d-flex justify-start m-6">
                     <v-avatar class="d-flex justify-start mr-4">
-                        <v-img src="../assets/pawIcon2.png"/>
+                        <img :src="pet.avatar"/>
                     </v-avatar>
                     {{ pet.nome }}
                 </v-card-title>
@@ -23,22 +31,45 @@
                 </v-card-text>
                 <v-card-actions class="d-flex justify-center mb-6">
                     <v-btn
-                        rounded 
-                        text
-                        color=#B387CC
-                        @click="reserve"
+                      v-if="ong"
+                      rounded
+                      text
+                      color=#B387CC
+                      @click="goToPetProfile(pet)"
                     >
-                        <v-icon color=#B387CC class="mr-2">mdi-heart</v-icon>
+                        Ver perfil
+                    </v-btn>
+                    <v-btn
+                      v-else
+                      rounded 
+                      text
+                      color=#B387CC
+                      :loading=buttonLoading
+                      @click="showInterest(pet)"
+                    >
+                      <v-icon color=#B387CC class="mr-2">mdi-heart</v-icon>
                         Mostrar interesse
                     </v-btn>
                 </v-card-actions>
             </v-card>
         </v-col>
-        </v-row>
+    </v-row>
+    <v-alert
+      v-model="success"
+      type="success"
+      dismissible
+    >Interesse registrado com sucesso</v-alert>
+    <v-alert
+      v-model="error"
+      type="error"
+      dismissible
+    >Erro ao mostrar interesse</v-alert>
+  </div>
 </template>
 
 <script>
-//import petService from '../services/petService'
+import petService from '../services/petService'
+import interesseService from '../services/interesseService'
 
 export default {
 
@@ -46,84 +77,79 @@ export default {
 
   data() {
     return {
-        avatar: '../assets/dogIcon2.png',
-        pets: [
-            { nome: 'Luna', 
-              descricao: 'Cachorrinha muito amorosa que gosta de carinhos e passeios.', 
-              especie: 'Cachorro', 
-              sexo: 'Fêmea', 
-              dataNascimento: '11/05/2017' 
-            },
-            { nome: 'Hades', 
-              descricao: 'Hades é muito tranquilo e gosta de ficar no seu cantinho.', 
-              especie: 'Gato', 
-              sexo: 'Macho', 
-              dataNascimento: '17/11/2019' 
-            },
-            { nome: 'Oswaldo', 
-              descricao: 'Pomba resgatada com a patinha machucada, está curada mas não voa mais.', 
-              especie: 'Ave', 
-              sexo: 'Macho', 
-              dataNascimento: '09/08/2020' 
-            },
-            { nome: 'Mickey', 
-              descricao: 'Camundongo resgatado de pet shop.', 
-              especie: 'Roedor', 
-              sexo: 'Macho', 
-              dataNascimento: '01/10/2021' 
-            },
-            { nome: 'Lune', 
-              descricao: 'Cachorrinha muito amorosa que gosta de carinhos e passeios.', 
-              especie: 'Cachorro', 
-              sexo: 'Fêmea', 
-              dataNascimento: '11/05/2017' 
-            },
-            { nome: 'Handes', 
-              descricao: 'Hades é muito tranquilo e gosta de ficar no seu cantinho.', 
-              especie: 'Gato', 
-              sexo: 'Macho', 
-              dataNascimento: '17/11/2019' 
-            },
-            { nome: 'Oswald', 
-              descricao: 'Pomba resgatada com a patinha machucada, está curada mas não voa mais.', 
-              especie: 'Ave', 
-              sexo: 'Macho', 
-              dataNascimento: '09/08/2020' 
-            },
-            { nome: 'Mick', 
-              descricao: 'Camundongo resgatado de pet shop.', 
-              especie: 'Roedor', 
-              sexo: 'Macho', 
-              dataNascimento: '01/10/2021' 
-            },
-            { nome: 'Mike', 
-              descricao: 'Camundongo resgatado de pet shop.', 
-              especie: 'Roedor', 
-              sexo: 'Macho', 
-              dataNascimento: '01/10/2021' 
-            }
-        ]
+      success: false,
+      error: false,
+      loading: false,
+      buttonLoading: false,
+      user: this.$store.state.user,
+      ong: this.$store.state.ong,
+      pets: []
     }
   },
 
+  created() {
+    this.loading = true
+    this.loadData()
+  },
+
   methods: {
-      image(pet) {
-          let img;
-            switch (pet.especie) {
-                case "Cachorro":
-                    img = "src/assets/dogIcon2.png"
-                    break
-                case "Gato":
-                    img = "src/assets/catIcon2.png"
-                    break
-                case "Ave":
-                    img = "src/assets/birdIcon2.png"
-                    break
-                default:
-                    img = "src/assets/pawIcon2.png"
-            }
-            return img
+
+    async loadData() {
+      this.pets = await petService.findAll()
+      this.pets.map(this.addAvatar)
+      this.loading = false
+    },
+
+    resetAlerts() {
+      this.success = false
+      this.error = false
+    },
+
+    addAvatar(pet) {
+      switch (pet.especie) {
+        case "Cachorro":
+          pet.avatar = '/dogIcon2.png'
+          break
+        case "Gato":
+          pet.avatar = '/catIcon2.png'
+          break
+        case "Ave":
+          pet.avatar = "/birdIcon2.png"
+          break
+        default:
+          pet.avatar = "/pawIcon2.png"
       }
-  }
+    },
+
+    goToPetProfile(pet) {
+      this.$store.commit('updateSelectedPet', pet)
+      this.$router.push({path: '/pet/profile'})
+    },
+
+    async showInterest(pet) {
+      this.buttonLoading = true
+      try {
+        await interesseService.create(this.toPet(pet), this.$store.state.user)
+        this.success = true
+      } catch {
+        this.error = true
+      } finally {
+        this.buttonLoading = false
+        this.resetAlerts()
+      }
+    },
+
+    toPet(pet) {
+      return {
+        id: pet.id,
+        nome: pet.nome, 
+        descricao: pet.descricao, 
+        especie: pet.especie, 
+        sexo: pet.sexo, 
+        dataNascimento: pet.dataNascimento
+      }
+    }
+
+  },
 }
 </script>

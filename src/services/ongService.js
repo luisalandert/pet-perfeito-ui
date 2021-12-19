@@ -16,7 +16,7 @@ export default {
         return response.data
     },
 
-    async update(denominacao, cnpj, telefone, cep, natureza, areaAtuacao, dataFundacao) {
+    async update(id, denominacao, cnpj, telefone, cep, natureza, areaAtuacao, dataFundacao) {
         const response = await api.put(`api/ongs/${id}`, {denominacao, cnpj, telefone, cep, natureza, areaAtuacao, dataFundacao})
         return response.data
     },

@@ -1,5 +1,5 @@
 <template>
-  <container fill-height>
+  <v-container fill-height>
     <div id="landing-page" class="ma-0 pa-0">
       <v-row d-flex justify-center mb-6 class="pa-6 ma-6">
         <v-col>
@@ -17,7 +17,7 @@
         </v-col>
       </v-row>
     </div>
-  </container>
+  </v-container>
 </template>
 
 <script>

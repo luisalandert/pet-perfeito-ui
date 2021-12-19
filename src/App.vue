@@ -1,50 +1,70 @@
 <template>
   <v-app id="app">
     <v-navigation-drawer
-        v-model="drawer"
-        color=#5fddd5
-        floating
-        app
+      v-model="drawer"
+      color=#5fddd5
+      floating
+      app
     >
-      <v-divider></v-divider>
-      <v-list
-          dense
-          nav
-      >
-        <v-list-item
+    <v-divider></v-divider>
+    <v-list
+        dense
+        nav
+    >
+      <v-list-item
+        v-for="item in items"
+        :key="item.title"
+        :to="item.to"
+        tile
+        link
+      > 
+        <v-list-content>
+          <v-icon>{{ item.title }}</v-icon>
+        </v-list-content>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 
-          v-for="item in items"
-          :key="item.title"
-          :to="item.to"
-          tile
-          link
+  <v-app-bar
+      color=#B387CC
+      app
+      flat
+      fixed
+  >
+    <v-icon color="white" @click="drawer = !drawer">mdi-paw</v-icon>
+    
+    <div id="title">
+      <v-toolbar-title class="white--text ma-6 pa-2">
+        <b>PET PERFEITO</b>
+      </v-toolbar-title>
+    </div>
+
+      <v-btn 
+        v-if="this.$store.state.ong || this.$store.state.user" 
+        id="login" 
+        fixed 
+        right 
+        text 
+        class="white--text" 
+        @click="reset"
         > 
-          <v-list-content>
-            <v-icon>{{ item.title }}</v-icon>
-          </v-list-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-app-bar
-        color=#B387CC
-        app
-        flat
-        fixed
-    >
-      <v-icon color="white" @click="drawer = !drawer">mdi-paw</v-icon>
-      
-      <div id="title">
-        <v-toolbar-title class="white--text ma-6 pa-2">
-          <b>PET PERFEITO</b>
-        </v-toolbar-title>
-      </div>
-      
-        <v-btn id="login" fixed right text class="white--text"> Login </v-btn>
-    </v-app-bar>
-    <v-main>
-      <router-view/>
-    </v-main>
+        Logout
+      </v-btn>
+      <v-btn 
+        v-else 
+        id="login" 
+        fixed 
+        right 
+        text 
+        class="white--text" 
+        to="/login"
+        > 
+        Login 
+      </v-btn>
+  </v-app-bar>
+  <v-main>
+    <router-view/>
+  </v-main>
   </v-app>
 
 </template>
@@ -57,10 +77,17 @@ export default {
       { title: 'Home', to: '/' },
       { title: 'Profile', to: '/user/profile' },
       { title: 'Feed', to: '/feed' },
-      { title: 'ONGs', to: '/clientes' },
+      { title: 'Área das ONGs', to: '/ong' },
     ],
     right: null,
   }),
+
+  methods: {
+    reset() {
+      this.$store.commit('updateUser', '')
+      this.$store.commit('updateOng', '')
+    }
+  },
 }
 </script>
 

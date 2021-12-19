@@ -5,7 +5,12 @@ import SignUp from '../views/SignUp.vue'
 import UserForm from '../views/UserForm.vue'
 import OngForm from '../views/OngForm.vue'
 import UserProfile from '../views/UserProfile.vue'
+import PetProfile from '../views/PetProfile.vue'
+import OngProfile from '../views/OngProfile.vue'
 import Feed from '../views/Feed.vue'
+import PetForm from '../views/PetForm.vue'
+import Login from '../views/Login.vue'
+import Ongs from '../views/Ongs.vue'
 
 Vue.use(VueRouter)
 
@@ -22,6 +27,11 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path:'/login',
+    name:'Login',
+    component: Login,
   },
   {
     path:'/signUp',
@@ -44,9 +54,29 @@ const routes = [
     component: UserProfile,
   },
   {
+    path:'/pet/profile',
+    name: 'PetProfile',
+    component: PetProfile
+  },
+  {
     path:'/feed',
     name: 'Feed',
     component: Feed,
+  },
+  {
+    path:'/new/pet',
+    name: 'PetForm',
+    component: PetForm,
+  },
+  {
+    path:'/ong',
+    name:'Ong',
+    component: Ongs
+  },
+  {
+    path:'/ong/profile',
+    name:'OngProfile',
+    component: OngProfile
   }
 ]
 

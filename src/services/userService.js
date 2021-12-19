@@ -16,7 +16,7 @@ export default {
         return response.data
     },
 
-    async update(nome, cpf, telefone, cep, dataNascimento) {
+    async update(id, nome, cpf, telefone, cep, dataNascimento) {
         const response = await api.put(`api/users/${id}`, {nome, cpf, telefone, cep, dataNascimento})
         return response.data
     },

@@ -19,8 +19,8 @@ export default {
         return response.data
     },
 
-    async create(pet_id, usuario_id) {
-        const response = await api.post('api/interesses', {pet_id, usuario_id})
+    async create(pet, usuario) {
+        const response = await api.post('api/interesses', {pet, usuario})
         return response.data
     },
 

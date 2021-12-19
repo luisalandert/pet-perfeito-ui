@@ -92,12 +92,25 @@ export default {
     }
   },
 
+  created() {
+    this.loadData()
+  },
+
   methods: {
+    async loadData() {
+      this.id = this.$store.state.user.id
+      this.nome = this.$store.state.user.nome
+      this.cpf = this.$store.state.user.cpf
+      this.telefone = this.$store.state.user.telefone
+      this.cep = this.$store.state.user.cep
+      this.dataNascimento = this.$store.state.user.dataNascimento
+
+    },
 
     async updateUser() {
         this.closeDialog()
         try{
-            await userService.update(this.nome, this.cpf, this.telefone, this.cep, this.dataNascimento)
+            await userService.update(this.id, this.nome, this.cpf, this.telefone, this.cep, this.dataNascimento)
             this.success = true
         } catch (e) {
             this.error = true
