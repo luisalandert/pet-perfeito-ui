@@ -42,6 +42,22 @@
             >Login</v-btn>
         </v-col>
       </v-row>
+
+      <v-flex class="d-flex justify-center">
+        <v-alert
+            v-model="success"
+            type="success"
+            max-width=400
+            dismissible
+        >Login feito com sucesso</v-alert>
+        <v-alert
+            v-model="error"
+            type="error"
+            max-width=400
+            dismissible
+        >Erro ao fazer login
+        </v-alert>
+    </v-flex>
     </v-container>
 </template>
 
@@ -55,6 +71,8 @@ export default {
 
   data() {
     return {
+      success: false,
+      error: false,
       nomeUser: '',
       idUser: '',
       passwordUser: '',
@@ -76,11 +94,18 @@ export default {
     },
 
     async login() {
-      let user
-      let ong
-      if (this.idUser) this.$store.commit('updateUser', await userService.find(this.idUser))
-      if (this.idOng) this.$store.commit('updateOng', await ongService.find(this.idOng))
-      this.$router.push({path: '/'})
+      try {
+        if (this.idUser) this.$store.commit('updateUser', await userService.find(this.idUser))
+        if (this.idOng) {
+          this.$store.commit('updateOng', await ongService.find(this.idOng))
+          this.$store.commit('updateOngId', this.idOng)
+        }
+        this.success = true
+        this.$router.push({path: '/'})
+      } catch(e) {
+        this.error = true
+      }
+
     },
   }
 

@@ -19,13 +19,13 @@ export default {
         return response.data
     },
 
-    async create(pet, usuario) {
-        const response = await api.post('api/interesses', {pet, usuario})
+    async create(petId, usuarioId) {
+        const response = await api.post(`api/interesses/${petId}/${usuarioId}`)
         return response.data
     },
 
-    async update(pet_id, usuario_id) {
-        const response = await api.put(`api/interesses/${id}`, {pet_id, usuario_id})
+    async update(petId) {
+        const response = await api.put(`api/interesses/${id}`)
         return response.data
     },
 

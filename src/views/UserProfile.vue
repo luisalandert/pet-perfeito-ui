@@ -109,13 +109,12 @@ export default {
 
     async updateUser() {
         this.closeDialog()
+        this.resetAlerts()
         try{
             await userService.update(this.id, this.nome, this.cpf, this.telefone, this.cep, this.dataNascimento)
             this.success = true
         } catch (e) {
             this.error = true
-        } finally {
-            resetAlerts
         }
     },
 

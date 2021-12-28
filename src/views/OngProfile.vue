@@ -29,11 +29,13 @@
     <v-alert
       v-model="success"
       type="success"
+      max-width=400
       dismissible
     >Cadastro realizado com sucesso</v-alert>
     <v-alert
       v-model="error"
       type="error"
+      max-width=400
       dismissible
     >Erro ao fazer cadastro</v-alert>
 </v-container>
@@ -70,8 +72,6 @@ export default {
 
   methods: {
     async loadData() {
-      console.log('loja')
-      console.log(this.$store.state.ong)
       this.id = this.$store.state.ong.id
       this.denominacao = this.$store.state.ong.denominacao
       this.cnpj = this.$store.state.ong.cnpj
@@ -84,9 +84,10 @@ export default {
     },
 
     async updateOng() {
+      this.resetAlerts()
       try{
         await ongService.update(
-          this.id,
+          this.$store.state.ongId,
           this.denominacao, 
           this.cnpj, 
           this.telefone, 
@@ -104,8 +105,6 @@ export default {
           this.success = true
       } catch (e) {
         this.error = true
-      } finally {
-        this.resetAlerts()
       }
     },
 

@@ -27,11 +27,13 @@
     <v-alert
       v-model="success"
       type="success"
+      max-width=400
       dismissible
     >Cadastro realizado com sucesso</v-alert>
     <v-alert
       v-model="error"
       type="error"
+      max-width=400
       dismissible
     >Erro ao fazer cadastro</v-alert>
 </v-container>
@@ -61,6 +63,7 @@ export default {
   methods: {
     async createPet() {
       this.loading = true
+      this.resetAlerts()
       try{
         await petService.create(this.nome, this.descricao, this.especie, this.sexo, this.dataNascimento)
         this.success = true
@@ -68,7 +71,6 @@ export default {
         this.error = true
       } finally {
         this.loading = false
-        resetAlerts
       }
     },
 

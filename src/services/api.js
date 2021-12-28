@@ -7,4 +7,6 @@ const config = {
 
 const api = axios.create(config);
 
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+
 export default api;

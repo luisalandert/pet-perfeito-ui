@@ -44,7 +44,7 @@
                       rounded 
                       text
                       color=#B387CC
-                      :loading=buttonLoading
+                      :loading="buttonLoading"
                       @click="showInterest(pet)"
                     >
                       <v-icon color=#B387CC class="mr-2">mdi-heart</v-icon>
@@ -54,16 +54,20 @@
             </v-card>
         </v-col>
     </v-row>
-    <v-alert
-      v-model="success"
-      type="success"
-      dismissible
-    >Interesse registrado com sucesso</v-alert>
-    <v-alert
-      v-model="error"
-      type="error"
-      dismissible
-    >Erro ao mostrar interesse</v-alert>
+    <v-flex class="d-flex justify-center">
+        <v-alert
+            v-model="success"
+            type="success"
+            max-width=400
+            dismissible
+        >Interesse registrado com sucesso</v-alert>
+        <v-alert
+            v-model="error"
+            type="error"
+            max-width=400
+            dismissible
+        >Erro ao registrar interesse</v-alert>
+    </v-flex>
   </div>
 </template>
 
@@ -128,28 +132,25 @@ export default {
 
     async showInterest(pet) {
       this.buttonLoading = true
+      this.resetAlerts()
       try {
-        await interesseService.create(this.toPet(pet), this.$store.state.user)
+        await interesseService.create(pet.id, this.$store.state.user.id)
         this.success = true
-      } catch {
+      } catch(e) {
         this.error = true
       } finally {
         this.buttonLoading = false
-        this.resetAlerts()
       }
     },
-
-    toPet(pet) {
-      return {
-        id: pet.id,
-        nome: pet.nome, 
-        descricao: pet.descricao, 
-        especie: pet.especie, 
-        sexo: pet.sexo, 
-        dataNascimento: pet.dataNascimento
-      }
-    }
-
   },
 }
 </script>
+<style scoped>
+  .v-alert {
+  position: fixed;
+  left: 50%;
+  bottom: 50px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+}
+</style>

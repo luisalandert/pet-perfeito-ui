@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     user: null,
     ong: null,
+    ongId: null,
     selectedPet: {}
   },
   mutations: {
@@ -17,13 +18,17 @@ export default new Vuex.Store({
     updateOng(state, ong) {
       state.ong = ong
     },
+    updateOngId(state, ongId) {
+      state.ongId = ongId
+    },
     updateSelectedPet(state, pet) {
       state.selectedPet = pet
-    }
+    },
   },
   getters: {
     user: state => state.user,
     ong: state => state.ong,
+    ongId: state => state.ongId,
     selectedPet: state => state.selectedPet
   }
 })

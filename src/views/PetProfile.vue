@@ -27,11 +27,13 @@
     <v-alert
       v-model="success"
       type="success"
+      max-width=400
       dismissible
     >Atualização realizada com sucesso</v-alert>
     <v-alert
       v-model="error"
       type="error"
+      max-width=400
       dismissible
     >Erro ao atualizar</v-alert>
 </v-container>
@@ -75,12 +77,13 @@ export default {
       this.especie = this.$store.state.selectedPet.especie
       this.sexo = this.$store.state.selectedPet.sexo
       this.dataNascimento = this.$store.state.selectedPet.dataNascimento
-      //this.interesses = await interesseService.findByPet(this.id)
+      this.interesses = await interesseService.findByPet(this.id)
       this.loading = false
     },
 
     async updatePet() {
       this.loading = true
+      this.resetAlerts()
       try{
         await petService.update(this.nome, this.descricao, this.especie, this.sexo, this.dataNascimento)
         this.success = true
@@ -88,7 +91,6 @@ export default {
         this.error = true
       } finally {
         this.loading = false
-        this.resetAlerts()
       }
     },
 

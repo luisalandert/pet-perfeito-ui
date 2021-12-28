@@ -26,11 +26,13 @@
     <v-alert
       v-model="success"
       type="success"
+      max-width=400
       dismissible
     >Cadastro realizado com sucesso</v-alert>
     <v-alert
       v-model="error"
       type="error"
+      max-width=400
       dismissible
     >Erro ao fazer cadastro</v-alert>
 </v-container>
@@ -58,13 +60,12 @@ export default {
 
   methods: {
     async createUser() {
+      this.resetAlerts()
       try{
         await userService.create(this.nome, this.cpf, this.telefone, this.cep, this.dataNascimento)
         this.success = true
       } catch (e) {
         this.error = true
-      } finally {
-        resetAlerts
       }
     },
 
