@@ -11,7 +11,7 @@
         <v-text-field v-model="sexo" label="Sexo"></v-text-field>
         <v-text-field v-model="dataNascimento" label="Data de Nascimento"></v-text-field>
         <v-spacer></v-spacer>
-        <v-flex class="d-flex flex-row-reverse">
+        <v-flex class="d-flex flex-row-reverse pb-6">
             <v-btn 
               rounded 
               depressed
@@ -24,6 +24,40 @@
             </v-btn>
         </v-flex>
     </v-form>
+
+    <v-divider></v-divider>
+
+    <v-flex class="d-flex flex-row py-6 pl-3">
+      <h2 id="title" class="black--text">Interessados no Pet</h2>
+    </v-flex>
+
+    <v-data-table
+        :headers="headers"
+        :items="interesses"
+        item-key="id"
+    >
+      <template #item.nome="{ item }">
+        {{ item.usuario.nome }}
+      </template>
+
+      <template #item.cpf="{ item }">
+        {{ item.usuario.cpf }}
+      </template>
+
+      <template #item.telefone="{ item }">
+        {{ item.usuario.telefone }}
+      </template>
+
+      <template #item.cep="{ item }">
+        {{ item.usuario.cep }}
+      </template>
+
+      <template #item.dataNascimento="{ item }">
+        {{ item.usuario.dataNascimento }}
+      </template>
+
+    </v-data-table>
+
     <v-alert
       v-model="success"
       type="success"
@@ -59,7 +93,14 @@ export default {
       especie: '',
       sexo: '',
       dataNascimento: '',
-      interesses: []
+      interesses: [],
+      headers: [
+      { text: 'Nome do usuário', value: 'nome'},
+      { text: 'CPF', value: 'cpf'},
+      { text: 'Telefone', value: 'telefone'},
+      { text: 'CEP', value: 'cep'},
+      { text: 'Data de nascimento', value: 'dataNascimento'},
+      ],
     }
   },
 
@@ -85,7 +126,7 @@ export default {
       this.loading = true
       this.resetAlerts()
       try{
-        await petService.update(this.nome, this.descricao, this.especie, this.sexo, this.dataNascimento)
+        await petService.update(this.id, this.nome, this.descricao, this.especie, this.sexo, this.dataNascimento)
         this.success = true
       } catch (e) {
         this.error = true
@@ -108,4 +149,13 @@ export default {
     font-weight: 300;
     font-size: 2rem;
   }
+</style>
+<style scoped>
+  .v-alert {
+  position: fixed;
+  left: 50%;
+  bottom: 50px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+}
 </style>

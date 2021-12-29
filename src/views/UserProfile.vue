@@ -16,7 +16,7 @@
 
     <v-dialog v-model=dialog max-width="350px">
         <template v-slot:activator="{on}">
-        <v-flex class="d-flex flex-row-reverse">
+        <v-flex class="d-flex flex-row-reverse pb-6">
             <v-btn
                 v-on="on"
                 rounded 
@@ -54,6 +54,39 @@
       </v-card>
     </v-dialog>
 
+    <v-divider></v-divider>
+
+    <v-flex class="d-flex flex-row py-6 pl-3">
+      <h2 id="title" class="black--text">Interesses do Usuário</h2>
+    </v-flex>
+
+    <v-data-table
+        :headers="headers"
+        :items="interesses"
+        item-key="id"
+    >
+      <template #item.nome="{ item }">
+        {{ item.pet.nome }}
+      </template>
+
+      <template #item.descricao="{ item }">
+        {{ item.pet.descricao }}
+      </template>
+
+      <template #item.especie="{ item }">
+        {{ item.pet.especie }}
+      </template>
+
+      <template #item.sexo="{ item }">
+        {{ item.pet.sexo }}
+      </template>
+
+      <template #item.dataNascimento="{ item }">
+        {{ item.pet.dataNascimento }}
+      </template>
+
+    </v-data-table>
+
     <v-flex class="d-flex justify-center">
         <v-alert
             v-model="success"
@@ -74,6 +107,7 @@
 <script>
 
 import userService from '../services/userService'
+import interesseService from '../services/interesseService'
 
 export default {
 
@@ -88,7 +122,15 @@ export default {
       cpf: '',
       telefone: '',
       cep: '',
-      dataNascimento: ''
+      dataNascimento: '',
+      interesses: [],
+      headers: [
+      { text: 'Nome do pet', value: 'nome'},
+      { text: 'Descrição', value: 'descricao'},
+      { text: 'Espécie', value: 'especie'},
+      { text: 'Sexo', value: 'sexo'},
+      { text: 'Data de nascimento', value: 'dataNascimento'},
+      ],
     }
   },
 
@@ -104,6 +146,7 @@ export default {
       this.telefone = this.$store.state.user.telefone
       this.cep = this.$store.state.user.cep
       this.dataNascimento = this.$store.state.user.dataNascimento
+      this.interesses = await interesseService.findByUser(this.id)
 
     },
 

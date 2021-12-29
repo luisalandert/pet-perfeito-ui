@@ -16,8 +16,8 @@ export default {
         return response.data
     },
 
-    async update(nome, descricao, especie, sexo, dataNascimento) {
-        const response = await api.put(`api/pets/${id}`, {nome, descricao, especie, sexo, dataNascimento})
+    async update(id, nome, descricao, especie, sexo, dataNascimento) {
+        const response = await api.put(`api/pets/${id}`, {id, nome, descricao, especie, sexo, dataNascimento})
         return response.data
     },
 
