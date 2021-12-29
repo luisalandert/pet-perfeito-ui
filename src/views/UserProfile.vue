@@ -14,7 +14,7 @@
     </v-form>
 
 
-    <v-dialog v-model=dialog max-width="350px">
+    <v-dialog v-model=dialog max-width="500px">
         <template v-slot:activator="{on}">
         <v-flex class="d-flex flex-row-reverse pb-6">
             <v-btn
@@ -178,5 +178,12 @@ export default {
     font-family: "Dosis";
     font-weight: 300;
     font-size: 2rem;
+  }
+  .v-alert {
+  position: fixed;
+  left: 50%;
+  bottom: 50px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
   }
 </style>

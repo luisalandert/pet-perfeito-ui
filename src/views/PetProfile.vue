@@ -157,5 +157,5 @@ export default {
   bottom: 50px;
   transform: translate(-50%, -50%);
   margin: 0 auto;
-}
+  }
 </style>

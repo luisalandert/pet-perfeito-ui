@@ -111,3 +111,12 @@ export default {
 
 }
 </script>
+<style scoped>
+  .v-alert {
+  position: fixed;
+  left: 50%;
+  bottom: 50px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  }
+</style>

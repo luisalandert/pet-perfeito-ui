@@ -2,8 +2,6 @@ import api from './api'
 
 export default {
 
-// TODO: checar se o create e update vao funcionar
-
     async find(id) {
         const response = await api.get(`api/interesses/${id}`)
         return response.data
