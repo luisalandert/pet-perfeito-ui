@@ -10,49 +10,20 @@
         <v-text-field v-model="telefone" label="Telefone"></v-text-field>
         <v-text-field v-model="cep" label="CEP"></v-text-field>
         <v-text-field v-model="dataNascimento" label="Data de Nascimento"></v-text-field>
+        
         <v-spacer></v-spacer>
-    </v-form>
-
-
-    <v-dialog v-model=dialog max-width="500px">
-        <template v-slot:activator="{on}">
-        <v-flex class="d-flex flex-row-reverse pb-6">
+        <v-flex class="d-flex flex-row-reverse">
             <v-btn
-                v-on="on"
-                rounded 
-                depressed
-                color="#5fddd5" 
-                class="white--text" 
-                @click="resetAlerts"
+              rounded 
+              depressed 
+              color="#5fddd5" 
+              class="white--text mb-6" 
+              @click="updateUser"
             >
-                Atualizar
+              Atualizar
             </v-btn>
         </v-flex>
-        </template>
-        <v-card>
-        <v-card-title>
-          Deseja atualizar o perfil {{ this.nome }} ?
-        </v-card-title>
-        
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="red"
-            text
-            @click=closeDialog
-          >
-            Cancelar
-          </v-btn>
-          <v-btn
-            color="green"
-            text
-            @click=updateUser
-          >
-            Atualizar
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    </v-form>
 
     <v-divider></v-divider>
 
@@ -151,7 +122,6 @@ export default {
     },
 
     async updateUser() {
-        this.closeDialog()
         this.resetAlerts()
         try{
             await userService.update(this.id, this.nome, this.cpf, this.telefone, this.cep, this.dataNascimento)
