@@ -14,20 +14,18 @@
         cols="4"
         >
             <v-card height="300">
-                <v-card-title class="d-flex justify-start m-6">
+                <v-card-title class="d-flex justify-center m-6">
                     <v-avatar class="d-flex justify-start mr-4">
                         <img :src="pet.avatar"/>
                     </v-avatar>
-                    {{ pet.nome }}
+                    <div class="d-flex flex-column justify-start align-start">
+                      {{ pet.nome }}<br/>
+                      <span class="text-body-1"> {{ pet.especie }} · {{ pet.sexo }}</span>
+                    </div>
                 </v-card-title>
-                <v-card-text class="d-flex justify-start m-6">
-                    descrição: {{ pet.descricao }}
-                    <br>
-                    espécie: {{ pet.especie }}
-                    <br>
-                    sexo: {{ pet.sexo }}
-                    <br>
-                    data de nascimento: {{ pet.dataNascimento }}
+                <v-card-text class="d-flex justify-center m-6">
+                    {{ pet.descricao }} <br/><br/>
+                    Data de nascimento: {{ pet.dataNascimento }}
                 </v-card-text>
                 <v-card-actions class="d-flex justify-center mb-6">
                     <v-btn
@@ -99,9 +97,25 @@ export default {
   methods: {
 
     async loadData() {
-      this.pets = await petService.findAll()
+      // this.pets = await petService.findAll()
+      this.pets = this.getMockPets()
       this.pets.map(this.addAvatar)
       this.loading = false
+    },
+
+    getMockPets() {
+      let pets = []
+      for (let i = 0; i < 100; i++) {
+        const pet = {
+          "nome": "Gatinho rock",
+          "descricao": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce suscipit iaculis libero, vitae fringilla enim aliquam vitae.`,
+          "sexo": "Masculino",
+          "dataNascimento": "07/03/2001",
+          "especie": "Gato"
+        }
+        pets.push(pet);
+      }
+      return pets;
     },
 
     resetAlerts() {
