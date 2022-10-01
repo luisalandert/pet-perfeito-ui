@@ -18,15 +18,19 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar color="rgba(0,0,0,0)" app flat fixed>
+    <v-app-bar
+      color="rgba(255,255,255,0)"
+      height="100px"
+      app
+      flat
+      fixed
+      hide-on-scroll
+    >
       <div id="title">
         <v-toolbar-title class="primary--text ma-6 pa-2">
-          <img
-            @click="drawer = !drawer"
-            width="60"
-            height="60"
-            src="./assets/PET-PERFEITO-PNG.png"
-          />
+          <a href="/">
+            <img width="60" height="60" src="./assets/PET-PERFEITO-PNG.png" />
+          </a>
         </v-toolbar-title>
       </div>
       <v-spacer></v-spacer>
@@ -69,8 +73,8 @@ export default {
     drawer: false,
     items: [
       { title: "Home", to: "/" },
-      { title: "Profile", to: "/user/profile" },
-      { title: "Feed", to: "/feed" },
+      { title: "Perfil", to: "/user/profile" },
+      { title: "Adotar", to: "/feed" },
       { title: "Área das ONGs", to: "/ong" },
     ],
     right: null,
