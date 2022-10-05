@@ -90,12 +90,106 @@
           <v-text-field v-model="telefone" label="Telefone"></v-text-field>
           <v-text-field v-model="cep" label="CEP"></v-text-field>
           <v-text-field v-model="dataNascimento" label="Data de Nascimento"></v-text-field>
-          <v-text-field v-model="moradia" label="Mora em casa ou apartamento?"></v-text-field>
-          <v-text-field v-model="moradia" label="A moradia é telada?"></v-text-field>
-          <v-text-field v-model="moradia" label="Já existem outros animais na casa?"></v-text-field>
-          <v-text-field v-model="moradia" label="Quantas pessoas moram na casa?"></v-text-field>
-          <v-text-field v-model="moradia" label="Tem crianças pequenas?"></v-text-field>
-          <v-text-field v-model="moradia" label="O animal ficará sozinho em casa?"></v-text-field>
+          <p class="text-left">Tem experiência com animais?</p>
+          <v-radio-group v-model="pergunta1" column>
+            <v-radio
+              label="sim"
+              value="3"
+            ></v-radio>
+            <v-radio
+              label="não"
+              value="1"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Mora em casa ou apartamento?</p>
+          <v-radio-group v-model="pergunta2" column>
+            <v-radio
+              label="casa"
+              value="1"
+            ></v-radio>
+            <v-radio
+              label="apartamento"
+              value="2"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Já possui os materiais necessários para receber o animal? (coleira, casinha, etc)</p>
+          <v-radio-group v-model="pergunta3" column>
+            <v-radio
+              label="sim"
+              value="2"
+            ></v-radio>
+            <v-radio
+              label="não"
+              value="1"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Existem outros animais na casa?</p>
+          <v-radio-group v-model="pergunta4" column>
+            <v-radio
+              label="sim"
+              value="1"
+            ></v-radio>
+            <v-radio
+              label="não"
+              value="2"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Tem filhos?</p>
+          <v-radio-group v-model="pergunta5" column>
+            <v-radio
+              label="sim"
+              value="1"
+            ></v-radio>
+            <v-radio
+              label="não"
+              value="3"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Qual o clima do local onde reside? (quente, frio, meio-termo)</p>
+          <v-radio-group v-model="pergunta6" column>
+            <v-radio
+              label="quente"
+              value="2"
+            ></v-radio>
+            <v-radio
+              label="frio"
+              value="1"
+            ></v-radio>
+             <v-radio
+              label="ameno"
+              value="3"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Está empregado?</p>
+          <v-radio-group v-model="pergunta7" column>
+            <v-radio
+              label="sim"
+              value="4"
+            ></v-radio>
+            <v-radio
+              label="não"
+              value="1"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Em que faixa está sua renda?</p>
+          <v-radio-group v-model="pergunta8" column>
+            <v-radio
+              label="até 3 salários mínimos"
+              value="1"
+            ></v-radio>
+            <v-radio
+              label="3 a 5 salários mínimos"
+              value="2"
+            ></v-radio>
+            <v-radio
+              label="5 a 10 salários mínimos"
+              value="3"
+            ></v-radio>
+            <v-radio
+              label="mais de 10 salários mínimos"
+              value="0"
+            ></v-radio>
+          </v-radio-group>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
