@@ -60,7 +60,7 @@
                   text
                   color="primary"
                   :loading="buttonLoading"
-                  @click="showInterest(pet)"
+                  @click="openDialog(pet)"
                 >
                   <v-icon color="primary" class="mr-2">mdi-heart</v-icon>
                   Mostrar interesse
@@ -76,12 +76,48 @@
         >Interesse registrado com sucesso</v-alert
       >
       <v-alert v-model="error" type="error" max-width="400" dismissible
-        >Erro ao registrar interesse</v-alert
-      >
+        >Erro ao registrar interesse</v-alert>
     </v-flex>
+
+    <v-dialog  v-model=dialog v-if=dialog max-width="500px">
+      <v-card>
+        <v-card-title>
+          Formulário de interesse em {{ this.selectedPet.nome }}
+        </v-card-title>
+        <v-card-text>
+          <v-text-field v-model="nome" label="Nome"></v-text-field>
+          <v-text-field v-model="cpf" label="CPF"></v-text-field>
+          <v-text-field v-model="telefone" label="Telefone"></v-text-field>
+          <v-text-field v-model="cep" label="CEP"></v-text-field>
+          <v-text-field v-model="dataNascimento" label="Data de Nascimento"></v-text-field>
+          <v-text-field v-model="moradia" label="Mora em casa ou apartamento?"></v-text-field>
+          <v-text-field v-model="moradia" label="A moradia é telada?"></v-text-field>
+          <v-text-field v-model="moradia" label="Já existem outros animais na casa?"></v-text-field>
+          <v-text-field v-model="moradia" label="Quantas pessoas moram na casa?"></v-text-field>
+          <v-text-field v-model="moradia" label="Tem crianças pequenas?"></v-text-field>
+          <v-text-field v-model="moradia" label="O animal ficará sozinho em casa?"></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="red"
+            text
+            @click=closeDialog
+          >
+            Cancelar
+          </v-btn>
+          <v-btn
+            color="#5fddd5"
+            text
+            @click=showInterest
+          >
+            Aplicar para adoção
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
-
 <script>
 import petService from "../services/petService";
 import interesseService from "../services/interesseService";
@@ -98,6 +134,8 @@ export default {
       user: this.$store.state.user,
       ong: this.$store.state.ong,
       pets: [],
+      selectedPet: null,
+      dialog: false
     };
   },
 
@@ -156,16 +194,26 @@ export default {
       this.$router.push({ path: "/pet/profile" });
     },
 
-    async showInterest(pet) {
-      this.buttonLoading = true;
+    openDialog(pet) {
+    this.selectedPet = pet
+    this.dialog = true
+    },
+
+    closeDialog() {
+      this.dialog = false
+    },
+
+    async showInterest() {
+      this.buttonLoading = true
       this.resetAlerts();
       try {
-        await interesseService.create(pet.id, this.$store.state.user.id);
-        this.success = true;
+       // await interesseService.create(pet.id, this.$store.state.user.id);
+        this.success = true
       } catch (e) {
-        this.error = true;
+        this.error = true
       } finally {
-        this.buttonLoading = false;
+        this.buttonLoading = false
+        this.dialog = false
       }
     },
   },

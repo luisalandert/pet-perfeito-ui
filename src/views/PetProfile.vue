@@ -56,6 +56,10 @@
         {{ item.usuario.dataNascimento }}
       </template>
 
+       <template #item.pontuação="{ item }">
+        {{ item.usuario.nota }}
+      </template>
+
     </v-data-table>
 
     <v-alert
@@ -100,6 +104,7 @@ export default {
       { text: 'Telefone', value: 'telefone'},
       { text: 'CEP', value: 'cep'},
       { text: 'Data de nascimento', value: 'dataNascimento'},
+      { text: 'Pontuação', value: 'nota'}
       ],
     }
   },
