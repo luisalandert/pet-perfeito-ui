@@ -23,6 +23,7 @@ export default new Vuex.Store({
     },
     updateSelectedPet(state, pet) {
       state.selectedPet = pet
+      console.log(state)
     },
   },
   getters: {

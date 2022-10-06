@@ -34,6 +34,7 @@
     <v-data-table
         :headers="headers"
         :items="interesses"
+        @click:row="openForm"
         item-key="id"
     >
       <template #item.nome="{ item }">
@@ -56,8 +57,8 @@
         {{ item.usuario.dataNascimento }}
       </template>
 
-       <template #item.pontuação="{ item }">
-        {{ item.usuario.nota }}
+       <template #item.notaUsuario="{ item }">
+        {{ item.notaUsuario }}
       </template>
 
     </v-data-table>
@@ -74,6 +75,116 @@
       max-width=400
       dismissible
     >Erro ao atualizar</v-alert>
+
+     <v-dialog  v-model=dialog v-if=dialog max-width="500px">
+      <v-card>
+        <v-card-title>
+          Formulário de interesse em {{ this.nome }}
+        </v-card-title>
+        <v-card-text>
+          <p class="text-left">Tem experiência com animais?</p>
+          <v-radio-group v-model="pergunta1" column>
+            <v-radio
+              label="sim"
+              value="10"
+            ></v-radio>
+            <v-radio
+              label="não"
+              value="1"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Mora em casa ou apartamento?</p>
+          <v-radio-group v-model="pergunta2" column>
+            <v-radio
+              label="casa"
+              value="10"
+            ></v-radio>
+            <v-radio
+              label="apartamento"
+              value="2"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Já possui os materiais necessários para receber o animal? (coleira, casinha, etc)</p>
+          <v-radio-group v-model="pergunta3" column>
+            <v-radio
+              label="sim"
+              value="10"
+            ></v-radio>
+            <v-radio
+              label="não"
+              value="1"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Existem outros animais na casa?</p>
+          <v-radio-group v-model="pergunta4" column>
+            <v-radio
+              label="sim"
+              value="8"
+            ></v-radio>
+            <v-radio
+              label="não"
+              value="1"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Tem filhos?</p>
+          <v-radio-group v-model="pergunta5" column>
+            <v-radio
+              label="sim"
+              value="1"
+            ></v-radio>
+            <v-radio
+              label="não"
+              value="10"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Qual o clima do local onde reside? (quente, frio, meio-termo)</p>
+          <v-radio-group v-model="pergunta6" column>
+            <v-radio
+              label="quente"
+              value="2"
+            ></v-radio>
+            <v-radio
+              label="frio"
+              value="9"
+            ></v-radio>
+             <v-radio
+              label="ameno"
+              value="3"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Está empregado?</p>
+          <v-radio-group v-model="pergunta7" column>
+            <v-radio
+              label="sim"
+              value="9"
+            ></v-radio>
+            <v-radio
+              label="não"
+              value="1"
+            ></v-radio>
+          </v-radio-group>
+          <p class="text-left">Em que faixa está sua renda?</p>
+          <v-radio-group v-model="pergunta8" column>
+            <v-radio
+              label="até 3 salários mínimos"
+              value="1"
+            ></v-radio>
+            <v-radio
+              label="3 a 5 salários mínimos"
+              value="2"
+            ></v-radio>
+            <v-radio
+              label="5 a 10 salários mínimos"
+              value="10"
+            ></v-radio>
+            <v-radio
+              label="mais de 10 salários mínimos"
+              value="0"
+            ></v-radio>
+          </v-radio-group>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 </v-container>
 </template>
 
@@ -86,12 +197,16 @@ export default {
 
   name: 'PetProfile',
 
+  props: {
+    petId: String
+  },  
+
   data() {
     return {
       success: false,
       error: false,
       loading: false,
-      id: '',
+      id: this.petId,
       nome: '',
       descricao: '',
       especie: '',
@@ -104,8 +219,18 @@ export default {
       { text: 'Telefone', value: 'telefone'},
       { text: 'CEP', value: 'cep'},
       { text: 'Data de nascimento', value: 'dataNascimento'},
-      { text: 'Pontuação', value: 'nota'}
+      { text: 'Pontuação', value: 'notaUsuario'}
       ],
+
+      dialog: false,
+      pergunta1: null,
+      pergunta2: null,
+      pergunta3: null,
+      pergunta4: null,
+      pergunta5: null,
+      pergunta6: null,
+      pergunta7: null,
+      pergunta8: null
     }
   },
 
@@ -117,14 +242,16 @@ export default {
   methods: {
 
     async loadData() {
-      this.id = this.$store.state.selectedPet.id
-      this.nome = this.$store.state.selectedPet.nome
-      this.descricao = this.$store.state.selectedPet.descricao
-      this.especie = this.$store.state.selectedPet.especie
-      this.sexo = this.$store.state.selectedPet.sexo
-      this.dataNascimento = this.$store.state.selectedPet.dataNascimento
-      this.interesses = await interesseService.findByPet(this.id)
+      let pet = await petService.find(this.petId)
+      this.id = this.petId
+      this.nome = pet.nome
+      this.descricao = pet.descricao
+      this.especie = pet.especie
+      this.sexo = pet.sexo
+      this.dataNascimento = pet.dataNascimento
+      this.interesses = await interesseService.findByPet(this.petId)
       this.loading = false
+      console.log(this.interesses)
     },
 
     async updatePet() {
@@ -143,6 +270,19 @@ export default {
     resetAlerts() {
       this.success = false
       this.error = false
+    },
+
+    openForm(interessedUser) {
+      this.pergunta1 = (interessedUser.formulario.pergunta1).toString()
+      this.pergunta2 = (interessedUser.formulario.pergunta2).toString()
+      this.pergunta3 = (interessedUser.formulario.pergunta3).toString()
+      this.pergunta4 = (interessedUser.formulario.pergunta4).toString()
+      this.pergunta5 = (interessedUser.formulario.pergunta5).toString()
+      this.pergunta6 = (interessedUser.formulario.pergunta6).toString()
+      this.pergunta7 = (interessedUser.formulario.pergunta7).toString()
+      this.pergunta8 = (interessedUser.formulario.pergunta8).toString()
+      this.dialog = true
+      console.log(typeof this.pergunta1)
     }
   }
 }

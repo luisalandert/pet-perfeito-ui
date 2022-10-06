@@ -54,9 +54,10 @@ const routes = [
     component: UserProfile,
   },
   {
-    path:'/pet/profile',
+    path:'/pet/profile/:petId',
     name: 'PetProfile',
-    component: PetProfile
+    component: PetProfile,
+    props: true
   },
   {
     path:'/feed',

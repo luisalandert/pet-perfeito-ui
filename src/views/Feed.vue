@@ -85,11 +85,6 @@
           Formulário de interesse em {{ this.selectedPet.nome }}
         </v-card-title>
         <v-card-text>
-          <v-text-field v-model="nome" label="Nome"></v-text-field>
-          <v-text-field v-model="cpf" label="CPF"></v-text-field>
-          <v-text-field v-model="telefone" label="Telefone"></v-text-field>
-          <v-text-field v-model="cep" label="CEP"></v-text-field>
-          <v-text-field v-model="dataNascimento" label="Data de Nascimento"></v-text-field>
           <p class="text-left">Tem experiência com animais?</p>
           <v-radio-group v-model="pergunta1" column>
             <v-radio
@@ -229,7 +224,15 @@ export default {
       ong: this.$store.state.ong,
       pets: [],
       selectedPet: null,
-      dialog: false
+      dialog: false,
+      pergunta1: null,
+      pergunta2: null,
+      pergunta3: null,
+      pergunta4: null,
+      pergunta5: null,
+      pergunta6: null,
+      pergunta7: null,
+      pergunta8: null
     };
   },
 
@@ -240,25 +243,9 @@ export default {
 
   methods: {
     async loadData() {
-      // this.pets = await petService.findAll()
-      this.pets = this.getMockPets();
+      this.pets = await petService.findAll()
       this.pets.map(this.addAvatar);
       this.loading = false;
-    },
-
-    getMockPets() {
-      let pets = [];
-      for (let i = 0; i < 100; i++) {
-        const pet = {
-          nome: "Gatinho rock",
-          descricao: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce suscipit iaculis libero, vitae fringilla enim aliquam vitae.`,
-          sexo: "Masculino",
-          dataNascimento: "07/03/2001",
-          especie: "Gato",
-        };
-        pets.push(pet);
-      }
-      return pets;
     },
 
     resetAlerts() {
@@ -269,10 +256,9 @@ export default {
     addAvatar(pet) {
       switch (pet.especie) {
         case "Cachorro":
-          pet.avatar = "/dogIcon2.png";
+          pet.avatar = "https://placedog.net/640/480?random"
           break;
         case "Gato":
-          pet.avatar = "/catIcon2.png";
           pet.avatar = "https://cataas.com/cat?size=600";
           break;
         case "Ave":
@@ -284,8 +270,8 @@ export default {
     },
 
     goToPetProfile(pet) {
-      this.$store.commit("updateSelectedPet", pet);
-      this.$router.push({ path: "/pet/profile" });
+      //this.$store.commit("updateSelectedPet", pet);
+      this.$router.push({ path: `/pet/profile/${pet.id}`});
     },
 
     openDialog(pet) {
@@ -301,7 +287,20 @@ export default {
       this.buttonLoading = true
       this.resetAlerts();
       try {
-       // await interesseService.create(pet.id, this.$store.state.user.id);
+        /*
+       await interesseService.create(
+        this.selectedPet.id,
+        this.user,
+        this.pergunta1,
+        this.pergunta2,
+        this.pergunta3,
+        this.pergunta4,
+        this.pergunta5,
+        this.pergunta6,
+        this.pergunta7,
+        this.pergunta8
+        )
+        */
         this.success = true
       } catch (e) {
         this.error = true
