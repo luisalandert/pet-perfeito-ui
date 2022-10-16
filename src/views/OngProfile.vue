@@ -61,7 +61,7 @@ export default {
       cep: '',
       areaAtuacao: '',
       natureza: '',
-      dataFundacao: ''
+      dataFundacao: '',
     }
   },
 

@@ -244,8 +244,24 @@ export default {
   methods: {
     async loadData() {
       this.pets = await petService.findAll()
+      //this.pets = this.getMockPets();
       this.pets.map(this.addAvatar);
       this.loading = false;
+    },
+
+    getMockPets() {
+      let pets = [];
+      for (let i = 0; i < 100; i++) {
+        const pet = {
+          nome: "Rock",
+          descricao: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce suscipit iaculis libero, vitae fringilla enim aliquam vitae.`,
+          sexo: "Masculino",
+          dataNascimento: "07/03/2001",
+          especie: "Gato",
+        };
+        pets.push(pet);
+      }
+      return pets;
     },
 
     resetAlerts() {
@@ -256,12 +272,20 @@ export default {
     addAvatar(pet) {
       switch (pet.especie) {
         case "Cachorro":
-          pet.avatar = "https://placedog.net/640/480?random"
+          pet.avatar = 'https://placedog.net/640/480?random'
+          break
+          pet.avatar = "/dogIcon2.png";
           break;
         case "Gato":
-          pet.avatar = "https://cataas.com/cat?size=600";
+          pet.avatar = '/catIcon2.png'
+          pet.avatar = "http://placekitten.com/200/300"
+          break
+         // pet.avatar = "/catIcon2.png";
+          pet.avatar = "http://placekitten.com/200/300";
           break;
         case "Ave":
+          pet.avatar = "/birdIcon2.png"
+          break
           pet.avatar = "/birdIcon2.png";
           break;
         default:
@@ -287,10 +311,10 @@ export default {
       this.buttonLoading = true
       this.resetAlerts();
       try {
-        /*
+        
        await interesseService.create(
         this.selectedPet.id,
-        this.user,
+        this.user.id,
         this.pergunta1,
         this.pergunta2,
         this.pergunta3,
@@ -300,7 +324,6 @@ export default {
         this.pergunta7,
         this.pergunta8
         )
-        */
         this.success = true
       } catch (e) {
         this.error = true

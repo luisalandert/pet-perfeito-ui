@@ -11,6 +11,7 @@ import Feed from '../views/Feed.vue'
 import PetForm from '../views/PetForm.vue'
 import Login from '../views/Login.vue'
 import Ongs from '../views/Ongs.vue'
+import OngDetails from '../views/OngDetails.vue'
 
 Vue.use(VueRouter)
 
@@ -78,6 +79,11 @@ const routes = [
     path:'/ong/profile',
     name:'OngProfile',
     component: OngProfile
+  },
+  {
+    path:'/ong/InstitutoAmparoAnimal',
+    name:'OngDetails',
+    component: OngDetails
   }
 ]
 

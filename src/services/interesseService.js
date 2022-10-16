@@ -31,7 +31,7 @@ export default {
         ) {
             console.log('na funcao')
         const response = await api.post(
-            `api/interesses/${petId}/${usuarioId}`,
+            `api/interesses/${petId}/usuario/${usuarioId}`,
             {
                 pergunta1,
                 pergunta2,
