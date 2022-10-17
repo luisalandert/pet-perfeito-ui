@@ -95,11 +95,21 @@ export default {
 
     async login() {
       try {
-        if (this.idUser) this.$store.commit('updateUser', await userService.find(this.idUser))
+        
+        //if (this.idUser) this.$store.commit('updateUser', await userService.find(this.idUser))
+        if (this.idUser) this.$store.commit('updateUser', 1)
+        /*
         if (this.idOng) {
           this.$store.commit('updateOng', await ongService.find(this.idOng))
           this.$store.commit('updateOngId', this.idOng)
         }
+        */
+        if (this.idOng) {
+          this.$store.commit('updateOng',1)
+          this.$store.commit('updateOngId', this.idOng)
+          this.$store.commit('updateUser', null)
+        }
+        
         this.success = true
         this.$router.push({path: '/'})
       } catch(e) {

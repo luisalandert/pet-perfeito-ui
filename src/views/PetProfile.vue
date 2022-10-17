@@ -242,16 +242,87 @@ export default {
   methods: {
 
     async loadData() {
-      let pet = await petService.find(this.petId)
+      //let pet = await petService.find(this.petId)
+      let pet = {
+        "id": 1,
+        "nome": "Gaia",
+        "descricao": "Gaia é um cachorro muito social que adora correr",
+        "especie": "Cachorro",
+        "sexo": "Masculino",
+        "dataNascimento": "2017-04-16"
+      }
       this.id = this.petId
       this.nome = pet.nome
       this.descricao = pet.descricao
       this.especie = pet.especie
       this.sexo = pet.sexo
       this.dataNascimento = pet.dataNascimento
-      this.interesses = await interesseService.findByPet(this.petId)
+      //this.interesses = await interesseService.findByPet(this.petId)
+      this.interesses = [
+  {
+    "id": 9,
+    "pet": {
+      "id": 1,
+      "nome": "Gaia",
+      "descricao": "Gaia é um cachorro muito social que adora correr",
+      "especie": "Cachorro",
+      "sexo": "Masculino",
+      "dataNascimento": "2017-04-16"
+    },
+    "usuario": {
+      "id": 1,
+      "nome": "Fulano",
+      "cpf": "12345678901",
+      "telefone": "11923456678",
+      "cep": "04565882",
+      "dataNascimento": "18/08/1998"
+    },
+    "formulario": {
+      "id": 8,
+      "pergunta1": 10,
+      "pergunta2": 10,
+      "pergunta3": 10,
+      "pergunta4": 8,
+      "pergunta5": 10,
+      "pergunta6": 9,
+      "pergunta7": 9,
+      "pergunta8": 10
+    },
+    "notaUsuario": 9
+  },
+  {
+    "id": 12,
+    "pet": {
+      "id": 1,
+      "nome": "Gaia",
+      "descricao": "Gaia é um cachorro muito social que adora correr",
+      "especie": "Cachorro",
+      "sexo": "Masculino",
+      "dataNascimento": "2017-04-16"
+    },
+    "usuario": {
+      "id": 10,
+      "nome": "Jorge Georgi",
+      "cpf": "12367586547",
+      "telefone": "11976543375",
+      "cep": "07645377",
+      "dataNascimento": "19/05/1993"
+    },
+    "formulario": {
+      "id": 11,
+      "pergunta1": 7,
+      "pergunta2": 7,
+      "pergunta3": 5,
+      "pergunta4": 6,
+      "pergunta5": 7,
+      "pergunta6": 9,
+      "pergunta7": 8,
+      "pergunta8": 7
+    },
+    "notaUsuario": 7
+  }
+]
       this.loading = false
-      console.log(this.interesses)
     },
 
     async updatePet() {

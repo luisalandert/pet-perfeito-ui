@@ -89,100 +89,100 @@
           <v-radio-group v-model="pergunta1" column>
             <v-radio
               label="sim"
-              value="3"
+              value=3
             ></v-radio>
             <v-radio
               label="não"
-              value="1"
+              value=1
             ></v-radio>
           </v-radio-group>
           <p class="text-left">Mora em casa ou apartamento?</p>
           <v-radio-group v-model="pergunta2" column>
             <v-radio
               label="casa"
-              value="1"
+              value=1
             ></v-radio>
             <v-radio
               label="apartamento"
-              value="2"
+              value=2
             ></v-radio>
           </v-radio-group>
           <p class="text-left">Já possui os materiais necessários para receber o animal? (coleira, casinha, etc)</p>
           <v-radio-group v-model="pergunta3" column>
             <v-radio
               label="sim"
-              value="2"
+              value=2
             ></v-radio>
             <v-radio
               label="não"
-              value="1"
+              value=1
             ></v-radio>
           </v-radio-group>
           <p class="text-left">Existem outros animais na casa?</p>
           <v-radio-group v-model="pergunta4" column>
             <v-radio
               label="sim"
-              value="1"
+              value=1
             ></v-radio>
             <v-radio
               label="não"
-              value="2"
+              value=2
             ></v-radio>
           </v-radio-group>
           <p class="text-left">Tem filhos?</p>
           <v-radio-group v-model="pergunta5" column>
             <v-radio
               label="sim"
-              value="1"
+              value=1
             ></v-radio>
             <v-radio
               label="não"
-              value="3"
+              value=3
             ></v-radio>
           </v-radio-group>
           <p class="text-left">Qual o clima do local onde reside? (quente, frio, meio-termo)</p>
           <v-radio-group v-model="pergunta6" column>
             <v-radio
               label="quente"
-              value="2"
+              value=2
             ></v-radio>
             <v-radio
               label="frio"
-              value="1"
+              value=1
             ></v-radio>
              <v-radio
               label="ameno"
-              value="3"
+              value=3
             ></v-radio>
           </v-radio-group>
           <p class="text-left">Está empregado?</p>
           <v-radio-group v-model="pergunta7" column>
             <v-radio
               label="sim"
-              value="4"
+              value=4
             ></v-radio>
             <v-radio
               label="não"
-              value="1"
+              value=1
             ></v-radio>
           </v-radio-group>
           <p class="text-left">Em que faixa está sua renda?</p>
           <v-radio-group v-model="pergunta8" column>
             <v-radio
               label="até 3 salários mínimos"
-              value="1"
+              value=1
             ></v-radio>
             <v-radio
               label="3 a 5 salários mínimos"
-              value="2"
+              value=2
             ></v-radio>
             <v-radio
               label="5 a 10 salários mínimos"
-              value="3"
+              value=3
             ></v-radio>
             <v-radio
               label="mais de 10 salários mínimos"
-              value="0"
+              value=0
             ></v-radio>
           </v-radio-group>
         </v-card-text>
@@ -243,8 +243,8 @@ export default {
 
   methods: {
     async loadData() {
-      this.pets = await petService.findAll()
-      //this.pets = this.getMockPets();
+      //this.pets = await petService.findAll()
+      this.pets = this.getMockPets();
       this.pets.map(this.addAvatar);
       this.loading = false;
     },
@@ -311,19 +311,20 @@ export default {
       this.buttonLoading = true
       this.resetAlerts();
       try {
-        
+        /*
        await interesseService.create(
         this.selectedPet.id,
         this.user.id,
-        this.pergunta1,
-        this.pergunta2,
-        this.pergunta3,
-        this.pergunta4,
-        this.pergunta5,
-        this.pergunta6,
-        this.pergunta7,
-        this.pergunta8
+        parseInt(this.pergunta1),
+        parseInt(this.pergunta2),
+        parseInt(this.pergunta3),
+        parseInt(this.pergunta4),
+        parseInt(this.pergunta5),
+        parseInt(this.pergunta6),
+        parseInt(this.pergunta7),
+        parseInt(this.pergunta8)
         )
+        */
         this.success = true
       } catch (e) {
         this.error = true
