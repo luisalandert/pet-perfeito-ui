@@ -1,5 +1,14 @@
 <template>
   <div>
+    <h1 v-if=!allPets >Pets indicados para seu perfil</h1>
+    <div class="d-flex justify-center mb-6">
+      <v-switch
+        v-model="allPets"
+        label='Mostrar todos os pets'
+        @change="loadPets"
+      ></v-switch>
+    </div>
+
     <div class="text-center" v-if="loading">
       <v-progress-circular
         class="my-16"
@@ -79,7 +88,7 @@
         >Erro ao registrar interesse</v-alert>
     </v-flex>
 
-   
+  
   </div>
 </template>
 <script>
@@ -98,7 +107,8 @@ export default {
       user: this.$store.state.user,
       ong: this.$store.state.ong,
       pets: [],
-      selectedPet: null
+      selectedPet: null,
+      allPets: false
     };
   },
 
@@ -109,9 +119,22 @@ export default {
 
   methods: {
     async loadData() {
-      this.pets = await petService.findAll()
-      this.pets.map(this.addAvatar);
-      this.loading = false;
+      this.loading = true
+      this.pets = await petService.findMatches(this.user.id)
+      this.pets.map(this.addAvatar)
+      this.loading = false
+    },
+
+    async loadPets() {
+      if (this.allPets) {
+        this.loading = true
+        this.pets = await petService.findAll()
+        this.pets.map(this.addAvatar)
+        this.loading = false
+      }
+      else {
+        this.loadData()
+      }
     },
 
     resetAlerts() {

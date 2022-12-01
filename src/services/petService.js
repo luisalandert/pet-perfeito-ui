@@ -12,8 +12,9 @@ export default {
     },
 
     async findMatches(userId) {
-        const response = await api.get(`api/pets/search?user_id=${userId}`)
-        return
+       // const response = await api.get(`api/pets/search?user_id=${userId}`)
+        //return response.data
+        return []
     },
 
     async create(nome, descricao, especie, sexo, dataNascimento) {
