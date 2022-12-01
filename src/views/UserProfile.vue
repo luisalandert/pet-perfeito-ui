@@ -22,6 +22,15 @@
             >
               Atualizar
             </v-btn>
+            <v-btn
+              rounded 
+              depressed 
+              color="#5fddd5" 
+              class="white--text mb-6 mr-4" 
+              @click="(dialog = true)"
+            >
+              Formulário
+            </v-btn>
         </v-flex>
     </v-form>
 
@@ -58,6 +67,135 @@
 
     </v-data-table>
 
+    <div>
+      <v-dialog  v-model=dialog v-if=dialog max-width="500px">
+        <v-card>
+          <v-card-title>
+            Formulário para adoção
+          </v-card-title>
+          <v-card-text>
+            <p class="text-left">Tem experiência com animais?</p>
+            <v-radio-group v-model="pergunta1" column>
+              <v-radio
+                label="sim"
+                value="3"
+              ></v-radio>
+              <v-radio
+                label="não"
+                value="1"
+              ></v-radio>
+            </v-radio-group>
+            <p class="text-left">Mora em casa ou apartamento?</p>
+            <v-radio-group v-model="pergunta2" column>
+              <v-radio
+                label="casa"
+                value="1"
+              ></v-radio>
+              <v-radio
+                label="apartamento"
+                value="2"
+              ></v-radio>
+            </v-radio-group>
+            <p class="text-left">Já possui os materiais necessários para receber o animal? (coleira, casinha, etc)</p>
+            <v-radio-group v-model="pergunta3" column>
+              <v-radio
+                label="sim"
+                value="2"
+              ></v-radio>
+              <v-radio
+                label="não"
+                value="1"
+              ></v-radio>
+            </v-radio-group>
+            <p class="text-left">Existem outros animais na casa?</p>
+            <v-radio-group v-model="pergunta4" column>
+              <v-radio
+                label="sim"
+                value="1"
+              ></v-radio>
+              <v-radio
+                label="não"
+                value="2"
+              ></v-radio>
+            </v-radio-group>
+            <p class="text-left">Tem filhos?</p>
+            <v-radio-group v-model="pergunta5" column>
+              <v-radio
+                label="sim"
+                value="1"
+              ></v-radio>
+              <v-radio
+                label="não"
+                value="3"
+              ></v-radio>
+            </v-radio-group>
+            <p class="text-left">Qual o clima do local onde reside? (quente, frio, meio-termo)</p>
+            <v-radio-group v-model="pergunta6" column>
+              <v-radio
+                label="quente"
+                value="2"
+              ></v-radio>
+              <v-radio
+                label="frio"
+                value="1"
+              ></v-radio>
+              <v-radio
+                label="ameno"
+                value="3"
+              ></v-radio>
+            </v-radio-group>
+            <p class="text-left">Está empregado?</p>
+            <v-radio-group v-model="pergunta7" column>
+              <v-radio
+                label="sim"
+                value="4"
+              ></v-radio>
+              <v-radio
+                label="não"
+                value="1"
+              ></v-radio>
+            </v-radio-group>
+            <p class="text-left">Em que faixa está sua renda?</p>
+            <v-radio-group v-model="pergunta8" column>
+              <v-radio
+                label="até 3 salários mínimos"
+                value="1"
+              ></v-radio>
+              <v-radio
+                label="3 a 5 salários mínimos"
+                value="2"
+              ></v-radio>
+              <v-radio
+                label="5 a 10 salários mínimos"
+                value="3"
+              ></v-radio>
+              <v-radio
+                label="mais de 10 salários mínimos"
+                value="0"
+              ></v-radio>
+            </v-radio-group>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="red"
+              text
+              @click=closeDialog
+            >
+              Cancelar
+            </v-btn>
+            <v-btn
+              color="#5fddd5"
+              text
+              @click=closeDialog
+            >
+              Confirmar
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
+
     <v-flex class="d-flex justify-center">
         <v-alert
             v-model="success"
@@ -88,7 +226,6 @@ export default {
     return {
       success: false,
       error: false,
-      dialog: false,
       nome: '',
       cpf: '',
       telefone: '',
@@ -102,6 +239,15 @@ export default {
       { text: 'Sexo', value: 'sexo'},
       { text: 'Data de nascimento', value: 'dataNascimento'},
       ],
+      dialog: false,
+      pergunta1: null,
+      pergunta2: null,
+      pergunta3: null,
+      pergunta4: null,
+      pergunta5: null,
+      pergunta6: null,
+      pergunta7: null,
+      pergunta8: null
     }
   },
 
@@ -117,8 +263,15 @@ export default {
       this.telefone = this.$store.state.user.telefone
       this.cep = this.$store.state.user.cep
       this.dataNascimento = this.$store.state.user.dataNascimento
+      this.pergunta1 = this.$store.state.user.pergunta1
+      this.pergunta2 = this.$store.state.user.pergunta2
+      this.pergunta3 = this.$store.state.user.pergunta3
+      this.pergunta4 = this.$store.state.user.pergunta4
+      this.pergunta5 = this.$store.state.user.pergunta5
+      this.pergunta6 = this.$store.state.user.pergunta6
+      this.pergunta7 = this.$store.state.user.pergunta7
+      this.pergunta8 = this.$store.state.user.pergunta8
       this.interesses = await interesseService.findByUser(this.id)
-
     },
 
     async updateUser() {
