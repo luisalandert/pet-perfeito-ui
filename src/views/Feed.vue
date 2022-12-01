@@ -7,7 +7,65 @@
         color="primary"
       ></v-progress-circular>
     </div>
-    <v-row class="pa-6 my-8 mx-16 d-flex justify-center" v-else>
+    <v-row class="d-flex justify-center">
+      <v-col class="d-flex justify-center align-center col-md-9">
+        <span class="filter-preffix">
+          Estou procurando por:
+        </span>
+        <v-btn
+          v-bind:class="{
+            'filter-btn-selected': clickedFilter,
+            'filter-btn': !clickedFilter,
+          }"
+          v-on:click="clickedFilter = !clickedFilter"
+        >
+          Gatos
+        </v-btn>
+        <v-btn
+          v-bind:class="{
+            'filter-btn-selected': clickedFilter,
+            'filter-btn': !clickedFilter,
+          }"
+          v-on:click="clickedFilter = !clickedFilter"
+        >
+          Cachorros
+        </v-btn>
+        <template>
+          <div class="text-center">
+            <v-dialog v-model="dialog" width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <div class="filter-btn" v-bind="attrs" v-on="on">
+                  <v-icon class="filter-icon">mdi-filter-outline</v-icon>
+                </div>
+              </template>
+
+              <v-card>
+                <v-card-text>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum
+                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                  cupidatat non proident, sunt in culpa qui officia deserunt
+                  mollit anim id est laborum.
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="primary" text @click="dialog = false">
+                    Aplicar filtros
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
+        </template>
+      </v-col>
+    </v-row>
+    <v-row class="pa-6 my-8 mx-16 d-flex justify-center">
       <v-col
         v-for="pet in pets"
         :key="pet.nome"
@@ -95,6 +153,7 @@ export default {
       error: false,
       loading: false,
       buttonLoading: false,
+      clickedFilter: false,
       user: this.$store.state.user,
       ong: this.$store.state.ong,
       pets: [],
@@ -168,10 +227,40 @@ export default {
         this.buttonLoading = false;
       }
     },
+
+    selectFilter(value) {},
   },
 };
 </script>
 <style scoped>
+.filter-btn {
+  padding: 10px;
+  margin: 0px 5px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+
+.filter-preffix {
+  margin-right: 20px;
+}
+
+.filter-btn-selected {
+  padding: 10px;
+  margin: 0px 5px;
+  background-color: #c97a43 !important;
+  border-radius: 10px;
+}
+
+.filter-btn:hover {
+  background-color: #c97a43;
+  color: #f0f0f0;
+  transition: 0.2s;
+}
+.filter-btn:hover .filter-icon {
+  filter: invert(1);
+  transition: 0.2s;
+}
+
 #pet-info {
   position: relative;
   top: -300px;
