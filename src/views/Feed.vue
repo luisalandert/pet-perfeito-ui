@@ -60,7 +60,7 @@
                   text
                   color="primary"
                   :loading="buttonLoading"
-                  @click="openDialog(pet)"
+                  @click="showInterest(pet)"
                 >
                   <v-icon color="primary" class="mr-2">mdi-heart</v-icon>
                   Mostrar interesse
@@ -149,24 +149,14 @@ export default {
       this.dialog = false
     },
 
-    async showInterest() {
+    async showInterest(selectedPet) {
       this.buttonLoading = true
       this.resetAlerts();
       try {
-        /*
        await interesseService.create(
-        this.selectedPet.id,
-        this.user,
-        this.pergunta1,
-        this.pergunta2,
-        this.pergunta3,
-        this.pergunta4,
-        this.pergunta5,
-        this.pergunta6,
-        this.pergunta7,
-        this.pergunta8
+        selectedPet.id,
+        this.user.id
         )
-        */
         this.success = true
       } catch (e) {
         this.error = true
