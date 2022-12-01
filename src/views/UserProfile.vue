@@ -78,7 +78,7 @@
             <v-radio-group v-model="pergunta1" column>
               <v-radio
                 label="sim"
-                value="3"
+                value="10"
               ></v-radio>
               <v-radio
                 label="não"
@@ -93,14 +93,14 @@
               ></v-radio>
               <v-radio
                 label="apartamento"
-                value="2"
+                value="10"
               ></v-radio>
             </v-radio-group>
             <p class="text-left">Já possui os materiais necessários para receber o animal? (coleira, casinha, etc)</p>
             <v-radio-group v-model="pergunta3" column>
               <v-radio
                 label="sim"
-                value="2"
+                value="10"
               ></v-radio>
               <v-radio
                 label="não"
@@ -115,7 +115,7 @@
               ></v-radio>
               <v-radio
                 label="não"
-                value="2"
+                value="10"
               ></v-radio>
             </v-radio-group>
             <p class="text-left">Tem filhos?</p>
@@ -126,29 +126,29 @@
               ></v-radio>
               <v-radio
                 label="não"
-                value="3"
+                value="10"
               ></v-radio>
             </v-radio-group>
             <p class="text-left">Qual o clima do local onde reside? (quente, frio, meio-termo)</p>
             <v-radio-group v-model="pergunta6" column>
               <v-radio
                 label="quente"
-                value="2"
-              ></v-radio>
-              <v-radio
-                label="frio"
                 value="1"
               ></v-radio>
               <v-radio
+                label="frio"
+                value="5"
+              ></v-radio>
+              <v-radio
                 label="ameno"
-                value="3"
+                value="10"
               ></v-radio>
             </v-radio-group>
             <p class="text-left">Está empregado?</p>
             <v-radio-group v-model="pergunta7" column>
               <v-radio
                 label="sim"
-                value="4"
+                value="10"
               ></v-radio>
               <v-radio
                 label="não"
@@ -163,15 +163,15 @@
               ></v-radio>
               <v-radio
                 label="3 a 5 salários mínimos"
-                value="2"
-              ></v-radio>
-              <v-radio
-                label="5 a 10 salários mínimos"
                 value="3"
               ></v-radio>
               <v-radio
+                label="5 a 10 salários mínimos"
+                value="7"
+              ></v-radio>
+              <v-radio
                 label="mais de 10 salários mínimos"
-                value="0"
+                value="10"
               ></v-radio>
             </v-radio-group>
           </v-card-text>
@@ -258,26 +258,38 @@ export default {
   methods: {
     async loadData() {
       this.id = this.$store.state.user.id
-      this.nome = this.$store.state.user.nome
-      this.cpf = this.$store.state.user.cpf
-      this.telefone = this.$store.state.user.telefone
-      this.cep = this.$store.state.user.cep
-      this.dataNascimento = this.$store.state.user.dataNascimento
-      this.pergunta1 = this.$store.state.user.pergunta1
-      this.pergunta2 = this.$store.state.user.pergunta2
-      this.pergunta3 = this.$store.state.user.pergunta3
-      this.pergunta4 = this.$store.state.user.pergunta4
-      this.pergunta5 = this.$store.state.user.pergunta5
-      this.pergunta6 = this.$store.state.user.pergunta6
-      this.pergunta7 = this.$store.state.user.pergunta7
-      this.pergunta8 = this.$store.state.user.pergunta8
+      let user = await userService.find(this.id)
+      console.log('user')
+      console.log(user)
+      this.nome = user.nome
+      this.cpf = user.cpf
+      this.telefone = user.telefone
+      this.cep = user.cep
+      this.dataNascimento = user.dataNascimento
+      this.pergunta1 = user.avaliacao.pergunta1.toString()
+      this.pergunta2 = user.avaliacao.pergunta2.toString()
+      this.pergunta3 = user.avaliacao.pergunta3.toString()
+      this.pergunta4 = user.avaliacao.pergunta4.toString()
+      this.pergunta5 =  user.avaliacao.pergunta5.toString()
+      this.pergunta6 = user.avaliacao.pergunta6.toString()
+      this.pergunta7 =  user.avaliacao.pergunta7.toString()
+      this.pergunta8 =  user.avaliacao.pergunta8.toString()
       this.interesses = await interesseService.findByUser(this.id)
+      console.log('pergunta1')
+      console.log(this.pergunta1)
     },
 
     async updateUser() {
         this.resetAlerts()
         try{
-            await userService.update(this.id, this.nome, this.cpf, this.telefone, this.cep, this.dataNascimento)
+            await userService.update(
+              this.id, 
+              this.nome, 
+              this.cpf, 
+              this.telefone, 
+              this.cep, 
+              this.dataNascimento
+              )
             this.success = true
         } catch (e) {
             this.error = true
