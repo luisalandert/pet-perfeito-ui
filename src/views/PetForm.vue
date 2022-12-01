@@ -91,10 +91,10 @@ export default {
 
     async downloadImage() {
       console.log("downloading image");
-      let imageName = `${this.nome}-${this.dataNascimento.replaceAll(
-        "/",
+      let imageName = `${this.nome.replaceAll(
+        " ",
         ""
-      )}.jpg`;
+      )}-${this.dataNascimento.replaceAll("/", "")}.jpg`;
       console.log(imageName);
       let base64 = await this.getBase64(this.image);
       console.log(base64);

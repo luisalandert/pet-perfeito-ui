@@ -141,10 +141,10 @@ export default {
       }
       let currentDate = `${pet.dataNascimento[2]}/${pet.dataNascimento[1]}/${pet.dataNascimento[0]}`;
       pet.dataNascimento = currentDate;
-      let imageName = `${pet.nome}-${pet.dataNascimento.replaceAll(
-        "/",
+      let imageName = `${pet.nome.replaceAll(
+        " ",
         ""
-      )}.jpg`;
+      )}-${pet.dataNascimento.replaceAll("/", "")}.jpg`;
       let base64 = JSON.parse(window.localStorage.getItem(imageName));
       let petImage = new Image();
       petImage.src = base64;
