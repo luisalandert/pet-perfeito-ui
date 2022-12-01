@@ -40,7 +40,7 @@
             <div id="pet-info" :class="{ 'on-hover': hover }">
               <v-card-title class="d-flex justify-center m-6">
                 <v-avatar class="d-flex justify-start mr-4">
-                  <img :src="pet.avatar" />
+                  <v-img :src="pet.avatar"></v-img>
                 </v-avatar>
                 <div class="d-flex flex-column justify-start align-start">
                   {{ pet.nome }}
@@ -143,19 +143,21 @@ export default {
     },
 
     addAvatar(pet) {
-      switch (pet.especie) {
-        case "Cachorro":
-          pet.avatar = "https://placedog.net/640/480?random"
-          break;
-        case "Gato":
-          pet.avatar = "https://cataas.com/cat?size=600";
-          break;
-        case "Ave":
-          pet.avatar = "/birdIcon2.png";
-          break;
-        default:
-          pet.avatar = "/pawIcon2.png";
+      for (let i = 0; i < pet.dataNascimento.length; i++) {
+        if (pet.dataNascimento[i] < 10) {
+          pet.dataNascimento[i] = `0${pet.dataNascimento[i]}`;
+        }
       }
+      let currentDate = `${pet.dataNascimento[2]}/${pet.dataNascimento[1]}/${pet.dataNascimento[0]}`;
+      pet.dataNascimento = currentDate;
+      let imageName = `${pet.nome.replaceAll(
+        " ",
+        ""
+      )}-${pet.dataNascimento.replaceAll("/", "")}.jpg`;
+      let base64 = JSON.parse(window.localStorage.getItem(imageName));
+      let petImage = new Image();
+      petImage.src = base64;
+      pet.avatar = petImage;
     },
 
     goToPetProfile(pet) {
