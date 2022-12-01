@@ -1,19 +1,30 @@
 <template>
   <v-container fill-height>
     <div id="landing-page" class="ma-0 pa-0">
-      <v-row d-flex justify-center mb-6 class="pa-6 ma-6">
-        <v-col>
-        <h2 id="text" class="black--text pa-6 ma-6">SOMOS O LUGAR PERFEITO PARA ENCONTRAR O SEU NOVO AMIGO PELUDO.</h2>
-        <h2 id="text-bold" class="black--text pa-6 ma-6">DÊ MATCH COM SEU PET!</h2>
-        <v-btn
-          rounded large depressed color="#5fddd5" class="white--text" to="/signUp"
-          >Sign up</v-btn>
+      <v-row class="d-flex justify-space-around mb-10">
+        <v-col
+          align-self="center"
+          class="d-flex flex-column align-center"
+          md="5"
+        >
+          <h2 id="title" class="black--text">
+            Somos o lugar perfeito para encontrar o seu novo amigo.
+          </h2>
+          <h2 id="subtitle" class="black--text mb-6">
+            Dê match com o seu pet!
+          </h2>
+          <v-btn
+            rounded
+            large
+            depressed
+            color="primary"
+            class="white--text mb-10"
+            to="/feed"
+            >Adotar</v-btn
+          >
         </v-col>
         <v-col>
-          <img alt="Pet Perfeito logo"
-            width="500px"
-            src="../assets/PET-PERFEITO-PNG.png"
-          >
+          <img alt="Gato dormindo" width="600px" src="../assets/gatohero.png" />
         </v-col>
       </v-row>
     </div>
@@ -21,36 +32,38 @@
 </template>
 
 <script>
+export default {
+  name: "Home",
 
-  export default {
-    name: 'Home',
-
-    components: {
-    },
-  }
+  components: {},
+};
 </script>
 
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Dosis&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mitr:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dosis&display=swap");
 
-  #landing-page {
-    height: 100vh;
-    overflow: hidden;
-  }
+#landing-page {
+  overflow: hidden;
+}
 
-  #text {
-    font-family: "Dosis";
-    font-weight: 300;
-    font-size: 2rem;
-  }
+#app {
+  background-color: #eceae7 !important;
+}
 
-  #text-bold {
-    font-family: "Dosis";
-    font-weight: bold;
-    font-size: 2rem;
-  }
+#subtitle {
+  font-family: "Mitr";
+  font-weight: 400;
+  font-size: 2rem;
+}
 
-  #logo {
-    height: 30vh;
-  }
+#title {
+  font-family: "Mitr";
+  font-weight: 600;
+  font-size: 2.5rem;
+}
+
+#logo {
+  height: 30vh;
+}
 </style>

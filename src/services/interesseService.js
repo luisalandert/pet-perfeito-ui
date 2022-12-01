@@ -17,8 +17,15 @@ export default {
         return response.data
     },
 
-    async create(petId, usuarioId) {
-        const response = await api.post(`api/interesses/${petId}/${usuarioId}`)
+    async create(petId,usuarioId) {
+        const response = await api.post(
+            `api/interesses/pet/${petId}/usuario/${usuarioId}`
+        )
+        console.log('petId')
+        console.log(petId)
+        console.log(usuarioId)
+        console.log('usuarioId')
+
         return response.data
     },
 

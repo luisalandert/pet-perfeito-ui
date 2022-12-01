@@ -7,6 +7,7 @@ import OngForm from '../views/OngForm.vue'
 import UserProfile from '../views/UserProfile.vue'
 import PetProfile from '../views/PetProfile.vue'
 import OngProfile from '../views/OngProfile.vue'
+//import FeedPage from '../views/FeedPage.vue'
 import Feed from '../views/Feed.vue'
 import PetForm from '../views/PetForm.vue'
 import Login from '../views/Login.vue'
@@ -54,9 +55,10 @@ const routes = [
     component: UserProfile,
   },
   {
-    path:'/pet/profile',
+    path:'/pet/profile/:petId',
     name: 'PetProfile',
-    component: PetProfile
+    component: PetProfile,
+    props: true
   },
   {
     path:'/feed',
