@@ -34,7 +34,7 @@
                   <img :src="pet.avatar" />
                 </v-avatar>
                 <div class="d-flex flex-column justify-start align-start">
-                  {{ pet.nome }}<br />
+                  {{ pet.nome }}
                   <span class="text-body-1">
                     {{ pet.especie }} · {{ pet.sexo }}</span
                   >
