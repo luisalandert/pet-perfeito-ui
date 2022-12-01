@@ -1,5 +1,14 @@
 <template>
   <div>
+    <h1 v-if=!allPets >Pets indicados para seu perfil</h1>
+    <div class="d-flex justify-center mb-6">
+      <v-switch
+        v-model="allPets"
+        label='Mostrar todos os pets'
+        @change="loadPets"
+      ></v-switch>
+    </div>
+
     <div class="text-center" v-if="loading">
       <v-progress-circular
         class="my-16"
@@ -34,7 +43,7 @@
                   <v-img :src="pet.avatar"></v-img>
                 </v-avatar>
                 <div class="d-flex flex-column justify-start align-start">
-                  {{ pet.nome }}<br />
+                  {{ pet.nome }}
                   <span class="text-body-1">
                     {{ pet.especie }} · {{ pet.sexo }}</span
                   >
@@ -76,12 +85,12 @@
         >Interesse registrado com sucesso</v-alert
       >
       <v-alert v-model="error" type="error" max-width="400" dismissible
-        >Erro ao registrar interesse</v-alert
-      >
+        >Erro ao registrar interesse</v-alert>
     </v-flex>
+
+  
   </div>
 </template>
-
 <script>
 import petService from "../services/petService";
 import interesseService from "../services/interesseService";
@@ -98,6 +107,8 @@ export default {
       user: this.$store.state.user,
       ong: this.$store.state.ong,
       pets: [],
+      selectedPet: null,
+      allPets: false
     };
   },
 
@@ -108,24 +119,22 @@ export default {
 
   methods: {
     async loadData() {
-      this.pets = await petService.findAll();
-      this.pets.map(this.addAvatar);
-      this.loading = false;
+      this.loading = true
+      this.pets = await petService.findMatches(this.user.id)
+      this.pets.map(this.addAvatar)
+      this.loading = false
     },
 
-    getMockPets() {
-      let pets = [];
-      for (let i = 0; i < 100; i++) {
-        const pet = {
-          nome: "Gatinho rock",
-          descricao: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce suscipit iaculis libero, vitae fringilla enim aliquam vitae.`,
-          sexo: "Masculino",
-          dataNascimento: "07/03/2001",
-          especie: "Gato",
-        };
-        pets.push(pet);
+    async loadPets() {
+      if (this.allPets) {
+        this.loading = true
+        this.pets = await petService.findAll()
+        this.pets.map(this.addAvatar)
+        this.loading = false
       }
-      return pets;
+      else {
+        this.loadData()
+      }
     },
 
     resetAlerts() {
@@ -152,20 +161,33 @@ export default {
     },
 
     goToPetProfile(pet) {
-      this.$store.commit("updateSelectedPet", pet);
-      this.$router.push({ path: "/pet/profile" });
+      //this.$store.commit("updateSelectedPet", pet);
+      this.$router.push({ path: `/pet/profile/${pet.id}`});
     },
 
-    async showInterest(pet) {
-      this.buttonLoading = true;
+    openDialog(pet) {
+    this.selectedPet = pet
+    this.dialog = true
+    },
+
+    closeDialog() {
+      this.dialog = false
+    },
+
+    async showInterest(selectedPet) {
+      this.buttonLoading = true
       this.resetAlerts();
       try {
-        await interesseService.create(pet.id, this.$store.state.user.id);
-        this.success = true;
+       await interesseService.create(
+        selectedPet.id,
+        this.user.id
+        )
+        this.success = true
       } catch (e) {
-        this.error = true;
+        this.error = true
       } finally {
-        this.buttonLoading = false;
+        this.buttonLoading = false
+        this.dialog = false
       }
     },
   },

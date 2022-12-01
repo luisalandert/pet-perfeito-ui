@@ -1,23 +1,5 @@
 <template>
   <v-app id="app">
-    <v-navigation-drawer v-model="drawer" color="primary" floating app>
-      <v-divider></v-divider>
-      <v-list dense nav>
-        <v-list-item
-          class="white--text"
-          v-for="item in items"
-          :key="item.title"
-          :to="item.to"
-          tile
-          link
-        >
-          <v-list-content>
-            <v-icon>{{ item.title }}</v-icon>
-          </v-list-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
     <v-app-bar
       color="rgba(255,255,255,0)"
       height="100px"
