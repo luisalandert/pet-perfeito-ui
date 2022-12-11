@@ -36,7 +36,10 @@
       </v-btn>
   </div>
   <div v-else>
-    <h2 id="text" class="ma-16 pa-6">Área exclusiva para ONGs, faça login com sua conta de ONG para acessar.</h2>
+    <!--<h2 id="text" class="ma-16 pa-6">Área exclusiva para ONGs, faça login com sua conta de ONG para acessar.</h2>-->
+    <v-btn text @click="goToOng" color="orange">
+      Instituto Amparo Animal
+    </v-btn>
   </div>
 </template>
 
@@ -50,6 +53,12 @@ export default {
       ong: this.$store.state.ong,
     }
   },
+
+  methods: {
+    goToOng() {
+      this.$router.push({ path: '/ong/InstitutoAmparoAnimal'})
+    },
+  }
 }
 </script>
 

@@ -1,13 +1,6 @@
 <template>
   <div>
-    <h1 v-if=!allPets >Pets indicados para seu perfil</h1>
-    <div class="d-flex justify-center mb-6">
-      <v-switch
-        v-model="allPets"
-        label='Mostrar todos os pets'
-        @change="loadPets"
-      ></v-switch>
-    </div>
+  
 
     <div class="text-center" v-if="loading">
       <v-progress-circular
@@ -33,7 +26,7 @@
           >
             <v-img
               id="pet-image"
-              :src="pet.avatar"
+              :src="require('@/assets/' + pet.id + '.jpg')"
               height="300px"
               width="300px"
             ></v-img>
@@ -108,7 +101,7 @@ export default {
       ong: this.$store.state.ong,
       pets: [],
       selectedPet: null,
-      allPets: false
+      allPets: true
     };
   },
 
@@ -120,7 +113,9 @@ export default {
   methods: {
     async loadData() {
       this.loading = true
-      this.pets = await petService.findMatches(this.user.id)
+      this.loadPets()
+
+      //this.pets = await petService.findMatches(this.user.id)
       this.pets.map(this.addAvatar)
       this.loading = false
     },
